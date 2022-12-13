@@ -1,0 +1,42 @@
+// GLOBAL CSS STYLESHEET 
+
+// REST ALL ELEMENTS
+
+// CUSTOM ELEMENT
+* {
+    font-size: 14px;
+    font-weight: 400;
+}
+h2 {
+    font-size: 25px;
+    font-weight: 600;
+}
+h4 {
+    font-size: 22px;
+    font-weight: 600;
+}
+h5 {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+// CUSTOM CLASSES
+
+
+// CUSTOM VUETIFY ELEMENTS
+v-divider {
+    color: #ddd;
+}
+v-btn.tall__btn {
+    font-size: 16px;
+    font-weight: 400;
+}
+v-btn.short__btn {
+    font-size: 14px;
+    font-weight: 400;
+}
+v-card {
+    padding: 20px;
+    margin: 20px;
+}
+v-card-title {}
