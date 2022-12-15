@@ -72,9 +72,9 @@
           <v-card-text id="card-text">
             <div class="ex_br__con flex_row align-center justify-space-around">
               <div style="min-width: 200px; min-height: 200px;"></div>
-              <div class="flex_row align-center justify-space-between">
-                <div class="dote mr-2" style="min-width: 15px;min-height: 6px;background: #F3654A;border-radius: 3px;"></div>
-                <span>text here</span>
+              <div class="flex_row align-center justify-space-between" v-for="item in breakdown_data" :key="item.id">
+                <div :class="{background: item.color }" class="dote mr-2" style="min-width: 15px;min-height: 6px;border-radius: 3px;"></div>
+                <span>{{ item.title }}</span>
               </div>
             </div>
           </v-card-text>
@@ -108,10 +108,13 @@ export default {
     YellowBellIcon,
    },
   data() {
-     Office maintaince - 30%- 5.1k Salary - 102k - 25% DEWA - 10k - 2% Office Rent -10k - 5%
     return {
       breakdown_data: [
-        { title: 'Business -35.1k- 30%', color: ''},
+        { title: 'Business -35.1k- 30%', color: 'accent2'},
+        { title: 'Office maintaince - 30%- 5.1k', color: 'primary'},
+        { title: 'Salary - 102k - 25%', color: 'accent4'},
+        { title: 'DEWA - 10k - 2%', color: 'accent1'},
+        { title: 'Office Rent -10k - 5%', color: 'accent3'},
       ],
       alerts: [
         { title: 'Receivable Alerts !', subtitle: 'Recievable exceeds 3 months', priority: 'High Priority' },
