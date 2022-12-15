@@ -9,9 +9,11 @@
 a {
     text-decoration: none;
 }
-* {
+*, h1, h2, h3, h4, h5, h6, span, a {
     font-size: 14px;
     font-weight: 400;
+    padding: 0;
+    margin: 0;
 }
   
 
@@ -37,7 +39,7 @@ body::-webkit-scrollbar {
   
 
 
-//  *** MY CUSTOM CLASSES *** 
+//  *** MY CUSTOM IDs & CLASSES *** 
 .flex_row {
     display: flex;
     flex-direction: row;
@@ -46,6 +48,9 @@ body::-webkit-scrollbar {
 .flex_column {
     display: flex;
     flex-direction: column;
+}
+#divider {
+    background: $outline;
 }
 
 
@@ -91,10 +96,6 @@ p, span, .n_text {
 
 
 // *** CUSTOM VUETIFY ELEMENTS *** 
-// v-divider
-.v-divider {
-    color: #ddd;
-}
 // v-menu
 .v-menu__content.theme--light.rounded-lg.menuable__content__active {
     box-shadow: 3px 3px 3px 1px rgb(0 0 0 / 0%) !important;
@@ -124,43 +125,40 @@ p, span, .n_text {
 
 
 // *** CARDS ***
-.card {
+#card {
     padding: $card-padding;
     margin: $card-margin;
     border: $card-border;
     border-radius: $card-border-radius;
     background: $card-bg;
     box-shadow: $card-shadow;
-    box-shadow: none !important;
+    overflow: hidden;
+}
+#card-title {
+    padding: 0px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+#card-text {
+    margin-top: 40px !important;
+    padding: 0px;
+    margin: 0px;
+}
+#card-actions {
+    padding: 0px;
+    margin: 0px;
 }
 .small_card {
     padding: $card-padding;
-    margin: $small-card-margin;
-    border: $card-border;
-    border-radius: $card_border-radius;
-    background: $card-bg;
-    box-shadow: $card-shadow;
-    min-width: $small-min-weight;
-    min-height: $small-min-height;
-    box-shadow: none !important;
-}
-// v-card
-v-card {
-    padding: $card-padding;
     margin: $card-margin;
-}
-v-card-title {
-    padding: $card-padding;
-    margin: 0px;
-    margin-bottom: $card-margin-bottom;
-}
-v-card-text {
-    padding: 0px;
-    margin: 0px;
-}
-v-card-actions {
-    padding: 0px;
-    margin: 0px;
+    border: $card-border;
+    border-radius: $card-border-radius;
+    background: $card-bg;
+    min-width: $small-card-min-weight;
+    min-height: $small-card-min-height;
+    box-shadow: none !important;
 }
 
 
