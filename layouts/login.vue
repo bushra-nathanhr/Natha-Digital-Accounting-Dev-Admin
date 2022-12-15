@@ -9,7 +9,7 @@
 <script>
 import '@/assets/scss/layouts/_loginLayout.scss'
 export default {
-    name: 'LoginLayout',
+    name: 'login',
     head() {
         return {
         title: "Nathan Digital",

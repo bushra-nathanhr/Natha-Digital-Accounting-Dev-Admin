@@ -39,6 +39,7 @@ export default {
   // ** DEVELOPMENT MODULES 
   buildModules: [
     '@nuxtjs/vuetify',
+    '@nuxtjs/svg',
     '@nuxtjs/composition-api/module',
     '@nuxtjs/google-fonts',
     '@nuxtjs/moment'
@@ -58,7 +59,7 @@ export default {
 
   // ** VUETIFY CONFIGURATIONS
   vuetify: {
-    customVariables: ['@/assets/scss/variables.scss'],
+    customVariables: ['~/assets/scss/variables.scss'],
     defaultAssets: {
       font: {
         family: 'Manrope',

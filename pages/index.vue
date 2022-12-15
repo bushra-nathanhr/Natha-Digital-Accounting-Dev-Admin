@@ -303,7 +303,7 @@
 import '@/assets/scss/Login/_login.scss'
 export default {
   name: 'LoginPage',
-  layout: 'LoginLayout',
+  layout: 'login',
   comments: {},
   data() {
     return {

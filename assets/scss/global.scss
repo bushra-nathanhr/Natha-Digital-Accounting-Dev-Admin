@@ -1,42 +1,176 @@
-// GLOBAL CSS STYLESHEET 
+// GLOBAL CSS STYLESHEET
 
-// REST ALL ELEMENTS
-
-// CUSTOM ELEMENT
+//  *** REST ALL ELEMENTS *** 
+*,*::before,*::after {
+    box-sizing: border-box ;
+    padding: 0 ;
+    margin: 0 ;
+}
+a {
+    text-decoration: none;
+}
 * {
     font-size: 14px;
     font-weight: 400;
 }
-h2 {
-    font-size: 25px;
-    font-weight: 600;
+  
+
+// *** SCROLLBAR ***
+body::-webkit-scrollbar {
+    width: 0px;
+    background-color: #ECF4F8;
+  }
+  body::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0);
+    background-color: #ECF4F8;
+    border-radius: 10px;
+  }
+  body::-webkit-scrollbar-thumb {
+    background-image: 
+      -webkit-gradient(linear, left bottom, top,
+      color-stop(0.44, $primary),
+      color-stop(0.72, $primary),
+      color-stop(0.86, $primary)
+    );
 }
-h4 {
+  
+  
+
+
+//  *** MY CUSTOM CLASSES *** 
+.flex_row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.flex_column {
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+// *** CUSTOM ELEMENT ***
+h1 {
+    font-size: $h1-size;
+    font-weight: $h1-weight;
+}
+h2 {
+    font-size: $h2-size;
+    font-weight: $h2-weight;
+}
+h2 {
     font-size: 22px;
     font-weight: 600;
 }
+h4 {
+    font-size: $h4-size;
+    font-weight: $h4-weight;
+}
 h5 {
-    font-size: 18px;
-    font-weight: 600;
+    font-size: $h5-size;
+    font-weight: $h5-weight;
+}
+h6 {
+    font-size: $h6-size;
+    font-weight: $h6-weight;
+}
+p, span, .n_text {
+    font-size: $text-size;
+    font-weight: $text-weight;
+}
+.subtext {
+    font-size: $subtext-size;
+    font-weight: $subtext-weight;
+}
+.sidenav_text {
+    font-size: $sidenav-size;
+    font-weight: $sidenav-weight;
 }
 
-// CUSTOM CLASSES
 
 
-// CUSTOM VUETIFY ELEMENTS
-v-divider {
+// *** CUSTOM VUETIFY ELEMENTS *** 
+// v-divider
+.v-divider {
     color: #ddd;
 }
-v-btn.tall__btn {
-    font-size: 16px;
-    font-weight: 400;
+// v-menu
+.v-menu__content.theme--light.rounded-lg.menuable__content__active {
+    box-shadow: 3px 3px 3px 1px rgb(0 0 0 / 0%) !important;
+    border-radius: 20px !important;
+    border: 1px solid #E2E7F1 !important;
 }
-v-btn.short__btn {
-    font-size: 14px;
-    font-weight: 400;
+
+
+// *** BUTTONS ***
+.tall__btn {
+    font-size: $btn-tall-font-size;
+    font-weight: $btn-font-weight;
+    height: $btn-tall-height;
+    border: $btn-border;
+    border-radius: $btn-border-radius;
+    box-shadow: none !important;
 }
+.short__btn {
+    font-size: $btn-short-font-size;
+    font-weight: $btn-font-weight;
+    height: $btn-short-height;
+    border: $btn-border;
+    border-radius: $btn-border-radius;
+    box-shadow: none !important;
+}
+
+
+
+// *** CARDS ***
+.card {
+    padding: $card-padding;
+    margin: $card-margin;
+    border: $card-border;
+    border-radius: $card-border-radius;
+    background: $card-bg;
+    box-shadow: $card-shadow;
+    box-shadow: none !important;
+}
+.small_card {
+    padding: $card-padding;
+    margin: $small-card-margin;
+    border: $card-border;
+    border-radius: $card_border-radius;
+    background: $card-bg;
+    box-shadow: $card-shadow;
+    min-width: $small-min-weight;
+    min-height: $small-min-height;
+    box-shadow: none !important;
+}
+// v-card
 v-card {
-    padding: 20px;
-    margin: 20px;
+    padding: $card-padding;
+    margin: $card-margin;
 }
-v-card-title {}
+v-card-title {
+    padding: $card-padding;
+    margin: 0px;
+    margin-bottom: $card-margin-bottom;
+}
+v-card-text {
+    padding: 0px;
+    margin: 0px;
+}
+v-card-actions {
+    padding: 0px;
+    margin: 0px;
+}
+
+
+// *** ICONS ***
+.icon__container {
+    border-radius: 50%;
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    max-width: 50px;
+    max-height: 50px;
+    padding: 12px;
+}

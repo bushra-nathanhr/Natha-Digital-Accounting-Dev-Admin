@@ -1,0 +1,386 @@
+.dl__main_card {
+    border-radius: 0px;
+    overflow: hidden;
+    display: block;
+}
+
+
+// *** SIDE NAVIGATION BAR ***
+
+
+.dl__drawer {
+    min-height: 100vh;
+    max-height: 100vh;
+    padding-top: 0.828vw;
+    float: left;
+    width: 13.741vw;
+    // padding-left: 20px;
+    // padding-right: 5px;
+  
+    .v-navigation-drawer__content {
+      display: grid;
+      grid-template-rows: 10.32vh 1fr 12.9vh;
+    }
+  
+    &.v-navigation-drawer--mini-variant {
+      width: 3vw;
+    }
+
+    .v-navigation-drawer__border {
+        border: 0.1px solid #fff !important;
+    }
+}
+
+
+// TOP
+
+.dl__brand_container {
+    // justify-content: flex-end;
+    // gap: 0.732vw;
+    height: 0.0vw;
+}
+
+
+.dl__brand_wrap {
+    display: flex;
+    flex-direction: column;
+  
+    &.d_none {
+      display: none;
+    }
+}
+
+
+.dl__brand_logo {}
+
+
+
+// LIST
+
+.dl__list {
+    min-height: 65vh;
+    overflow: auto;
+    overflow-x: hidden;
+    // margin-top: 30px;
+
+    &::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0);
+        background-color: #ECF4F8;
+        border-radius: 10px;
+    }
+
+    &::-webkit-scrollbar {
+        width: 5px;
+        border-radius: 10px;
+        background-color: #ECF4F8;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        // border-radius: 60%;
+        background-image: -webkit-gradient(linear,
+            left bottom,
+            left top,
+            color-stop(0.44, $primary),
+            color-stop(0.72, $primary),
+            color-stop(0.86, $primary));
+        border-radius: 10px;
+    }
+        
+    .dl__list_div {
+        // display: flex;
+        // flex-direction: column;
+        // justify-content: start;
+    }
+
+    .dl__drawer_topic_link {
+        padding-left: 1.1rem;
+        font-weight: $h6-weight;
+        font-size: $h6-size;
+        // margin-top: 1.2rem !important;
+    
+        &.d_none {
+        display: none;
+        }
+    }
+
+    .dl__list_item {
+        justify-content: center;
+        padding-left: 30px;
+
+        // &.v-list-item.v-list-item--link.theme--light:active {
+        //     background: #0a94ff21;
+        //     color: #0A94FF;
+        //     border-radius: 20px;
+        // }
+        &:hover::before {
+            opacity: 0.04;
+            color: #4e4e4e !important;
+            border-radius: 15px;
+            height: 85%;
+            width: 80%;
+            margin: auto;
+            margin-top: 5px !important;
+            margin-left: 19px !important;
+            font-weight: bold !important;
+        }
+    }
+
+    .dl__drawer_list_icon {
+        margin-right: 12px;
+
+        &.mr_0 {
+        margin-right: 0px;
+        }
+
+        .side_nav__masker {
+            position: absolute;
+            left: 0px;
+            width: 10px;
+        }
+
+        .side_nav_icons {
+            width: 22px;
+            margin: auto;
+            padding: auto; 
+        }
+    }
+
+    .dl_drawer_link {
+        font-size: $sidenav-size;
+        font-weight: $sidenav-weight;
+        
+        &:hover {
+            color: #000027 !important;
+            font-weight: bold !important;
+        }
+    }
+
+    // &:active {
+    //     color: #0A94FF !important;
+    //     font-weight: bold !important;
+    // }
+}
+a.dl__list_item.v-list-item--active.v-list-item.v-list-item {
+    // color: #0A94FF !important;
+}
+a.theme--light.v-list-item--active:hover::before, .theme--light.v-list-item--active::before {
+    opacity: 0.12;
+    color: #0A94FF !important;
+    height: 85%;
+    width: 80%;
+    margin: auto;
+    margin-top: 5px !important;
+    margin-left: 19px !important;
+    border-radius: 15px;
+}
+
+aside.dl__drawer.v-navigation-drawer.v-navigation-drawer--mini-variant.v-navigation-drawer--open.theme--light.navbar_bg {
+    width: 75px !important;
+    padding-right: 10px; 
+}
+
+
+// *** REVIEW THIS (change the background of the llink depend on the chosen rout)
+// .dashboard >  a.theme--light.v-list-item--active:hover::before, a.theme--light.v-list-item--active::before {
+//     color: red;
+// }
+// .sales  > a.theme--light.v-list-item--active:hover::before, a.theme--light.v-list-item--active::before {
+//     color: yellowgreen;
+// }
+
+// .Dashboard.theme--light.v-list-item--active:hover::before, .theme--light.v-list-item--active::before {
+//     color: #0A94FF !important;
+// }
+// .Sales.theme--light.v-list-item--active:hover::before, .theme--light.v-list-item--active::before  {
+//     color: #1AD598 !important;
+// }
+// .Expenses.theme--light.v-list-item--active:hover::before, .theme--light.v-list-item--active::before  {
+//     color: #F3654A !important;
+// }
+// .ChartofAccounts.theme--light.v-list-item--active:hover::before, .theme--light.v-list-item--active::before  {
+//     color: #895BF1 !important;
+// }
+// .Customers.theme--light.v-list-item--active:hover::before, .theme--light.v-list-item--active::before  {
+//     color: #FFB536 !important;
+// }
+
+
+// FOOTER
+
+
+.dl__side_footer {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    padding-bottom: 1rem;
+  
+    .dl__side_footer_brand_wrap {
+      flex: 1 1 80%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+      gap: 10px;
+    }
+  
+    div {
+      flex: 1 1 20%;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 10px;
+      margin: 4px;
+    }
+
+    .miniClose {}
+}
+
+
+
+
+
+
+
+
+
+// *** TOP NAVIGATION BAR ***
+
+
+.dl__main {
+    max-height: 100vh;
+
+    &::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0);
+        background-color: #ECF4F8;
+        border-radius: 10px;
+    }
+
+    &::-webkit-scrollbar {
+        width: 0px;
+        background-color: #ECF4F8;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-image: -webkit-gradient(linear,
+            left bottom,
+            left top,
+            color-stop(0.44, $primary),
+            color-stop(0.72, $primary),
+            color-stop(0.86, $primary));
+    }
+}
+
+
+.dl__headNav {
+    .dl__header {
+        padding: 0.4vw 1.2vw 0.4vw 1vw;
+        height: 6.97vh;
+    
+        h2 {
+            font-size: $h2-size;
+            font-weight: $h2-weight;
+            letter-spacing: -0.023vw;
+        }
+        p {
+            font-size: $subtext-size;
+            font-weight: $subtext-weight;
+        }
+
+        .dn__header {
+            align-items: flex-start;
+            min-width: 230px !important;
+        }
+
+        // .tabs__header_con {
+        //     min-width: 47vw !important;
+        // }
+        .tabs__header {
+            min-width: fit-content !important;
+        }
+    }
+}
+
+
+.dl__header_actions {
+    display: flex;
+    gap: 1vw;
+
+    .notification_icon {
+      margin-right: 15px;
+      &:hover {
+        color: $primary;
+        cursor: pointer;
+      }
+    }
+
+    .nd__profile_pic {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: justify-between;
+        padding: 20px;
+    }
+
+}
+
+.dl__accounts_list_items {
+
+}
+
+// *** MAIN PAGE CONTAINER ***
+
+.dl__content {
+    padding: 1vw;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    overflow-y: scroll;
+    max-height: 100vh - 5.67vh;
+  
+    &::-webkit-scrollbar-track {
+      -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0);
+      background-color: #ECF4F8;
+      border-radius: 10px;
+    }
+  
+    &::-webkit-scrollbar {
+      width: 5px;
+      background-color: #ECF4F8;
+    }
+  
+    &::-webkit-scrollbar-thumb {
+      background-image: -webkit-gradient(linear,
+          left bottom,
+          left top,
+          color-stop(0.44, $primary),
+          color-stop(0.72, $primary),
+          color-stop(0.86, $primary));
+    }
+}
+
+// *** MEDIA QUERY ***
+// LAPTOP SCREENS
+@media only screen and (max-width: 1536px) {
+    // fit the screen height in mini sidenavbar mode
+    .v-list.dl__list.v-sheet.theme--light {
+        min-height: fit-content;
+        overflow:auto;
+    }
+    // hide the bottom sidenav v-spacer
+    .spacer.small_spacer {
+        display: none;
+    }
+    // give the v-tab a space holder width (when its hidden)
+    // .tabs__header_con {
+    //     min-width: 35vw !important;
+    // }
+}
+
+// DESKTOP SCREENS
+@media only screen and (min-width: 1537px) {
+    // give the v-tab a space holder width (when its hidden)
+    // .tabs__header_con {
+    //     min-width: 47vw !important;
+    // }
+}
