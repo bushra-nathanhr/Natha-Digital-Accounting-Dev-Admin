@@ -127,7 +127,7 @@ p, span, .n_text {
 // *** CARDS ***
 #card {
     padding: $card-padding;
-    margin: $card-margin;
+    margin: 0 !important; /* $card-margin 'rm for grid gaps porous' */
     border: $card-border;
     border-radius: $card-border-radius;
     background: $card-bg;
@@ -171,4 +171,12 @@ p, span, .n_text {
     max-width: 50px;
     max-height: 50px;
     padding: 12px;
+}
+
+
+// *** COL & ROW ***
+// remove vuetify default v-row margin and padding 
+.row {
+    margin: 0 !important;
+    padding: 0 !important;
 }

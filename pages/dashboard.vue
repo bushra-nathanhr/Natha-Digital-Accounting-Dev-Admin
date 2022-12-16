@@ -1,10 +1,11 @@
 <template>
-  <v-row class="">
+  <v-row class="wrapper-row">
 
     <!-- ROW-1 -->
-    <v-row>
+    <v-row class="row1">
 
-      <!-- overview -->
+      <!-- Overview -->
+      <!-- component: OverviewTotalsViewer  -->
       <v-col sm="12" md="6" lg="4">
         <v-card id="card">
           <v-card-title id="card-title">
@@ -22,8 +23,8 @@
         </v-card>
       </v-col>
 
-
-      <!-- alerts -->
+      <!-- Alerts -->
+      <!-- obj: alerts_data  -->
       <v-col sm="12" md="6" lg="4">
         <v-card id="card">
           <v-card-title id="card-title">
@@ -39,7 +40,7 @@
           </v-card-title>
           <v-card-text id="card-text" style="margin-top: 20px !important;">
             <div class="alert__con" >
-              <div v-for="item in alerts" :key="item.id">
+              <div v-for="item in alerts_data" :key="item.id">
               <div class="flex_row my-3" >
                 <RedBellIcon v-if="item.priority == 'High Priority'" />
                 <YellowBellIcon v-if="item.priority == 'Low Priority'" />
@@ -59,35 +60,182 @@
         </v-card>
       </v-col>
 
-
       <!-- Expense Breakdown -->
+      <!-- obj: breakdown_data  -->
       <v-col sm="12" md="6" lg="4">
         <v-card id="card">
           <v-card-title id="card-title">
-            <h4>Expense Breakdown</h4>
+            <h4 class="text--text">Expense Breakdown</h4>
             <div class="flex_row justify-space-between">
               <v-btn class="short__btn mr-2" outlined>Year</v-btn>
             </div>
           </v-card-title>
           <v-card-text id="card-text">
             <div class="ex_br__con flex_row align-center justify-space-around">
-              <div style="min-width: 200px; min-height: 200px;"></div>
-              <div class="flex_row align-center justify-space-between" v-for="item in breakdown_data" :key="item.id">
-                <div :class="{background: item.color }" class="dote mr-2" style="min-width: 15px;min-height: 6px;border-radius: 3px;"></div>
-                <span>{{ item.title }}</span>
+              <div style="min-width: 100px; min-height: 100px;"></div>
+              <div class="flex_column">
+                <div class="flex_row align-center pa-2" v-for="item in breakdown_data" :key="item.id">
+                  <div :class="item.color" class="dote mr-2" style="min-width: 15px;min-height: 6px;border-radius: 3px;"></div>
+                  <span class="subtext--text">{{ item.name }} - {{ item.amount }} - {{ item.percentage }}%</span>
+                </div>
+            </div>
+            </div>
+          </v-card-text>
+        </v-card>
+      </v-col>
+
+    </v-row>
+
+    <!-- ROW-2 -->
+    <v-row class="row2">
+
+      <!-- Unpaid Invoice -->
+      <!-- obj: unpaid_invoice_data  -->
+      <v-col sm="12" md="6" lg="4">
+        <v-card id="card">
+          <v-card-title id="card-title">
+            <h4>Unpaid Invoice</h4>
+            <div class="flex_row justify-space-between">
+              <v-btn class="short__btn mr-2" outlined>Month</v-btn>
+              <v-btn class="short__btn" color="primary">Year</v-btn>
+            </div>
+          </v-card-title>
+          <v-card-text id="card-text">
+            <div class="unpaid_invoice__con flex_column">
+              <div class="flex_row justify-space-between">
+                <h5 class="text--text">Last 365days</h5>
+                <h4 class="text--text">AED {{ unpaid_invoice_data.last365Days }}</h4>
+              </div>
+              <div class="mt-5 flex_row justify-space-between">
+                <div class="flex_column justify-start">
+                  <span class="caption subtext--text">Overdue</span>
+                  <h5 class="text--text">AED {{ unpaid_invoice_data.overDue }}</h5>
+                </div>
+                <div class="flex_column justify-start">
+                  <span class="caption subtext--text">Not due yet</span>
+                  <h5 class="text--text">AED {{ unpaid_invoice_data.notDueYet }}</h5>
+                </div>
+              </div>
+              <div class="graph__con mt-9">
+                <div style="background: #E2E7F1; min-width: 85%; min-height: 50px;border-radius: 10px;">
+                  <div style="background: #F3654A; max-width: 80%; min-height: 50px;border-radius: 10px;"/>
+                </div>
               </div>
             </div>
           </v-card-text>
         </v-card>
       </v-col>
 
+      <!-- Paid Invoice -->
+      <!-- obj: paid_invoice_data  -->
+      <v-col sm="12" md="6" lg="4">
+        <v-card id="card">
+          <v-card-title id="card-title">
+            <h4>Paid Invoice</h4>
+            <div class="flex_row justify-space-between">
+              <v-btn class="short__btn mr-2" outlined>Month</v-btn>
+              <v-btn class="short__btn" color="primary">Year</v-btn>
+            </div>
+          </v-card-title>
+          <v-card-text id="card-text">
+            <div class="unpaid_invoice__con flex_column">
+              <div class="flex_row justify-space-between">
+                <h5 class="text--text">Last 30days</h5>
+                <h4 class="text--text">AED {{ paid_invoice_data.last30Days }}</h4>
+              </div>
+              <div class="mt-5 flex_row justify-space-between">
+                <div class="flex_column justify-start">
+                  <span class="caption subtext--text">Not Deposited</span>
+                  <h5 class="text--text">AED {{ paid_invoice_data.notDeposited }}</h5>
+                </div>
+                <div class="flex_column justify-start">
+                  <span class="caption subtext--text">Deposited</span>
+                  <h5 class="text--text">AED {{ paid_invoice_data.deposited }}</h5>
+                </div>
+              </div>
+              <div class="graph__con mt-9">
+                <div style="background: #E2E7F1; min-width: 85%; min-height: 50px;border-radius: 10px;">
+                  <div style="background: #1AD598; max-width: 40%; min-height: 50px;border-radius: 10px;"/>
+                </div>
+              </div>
+            </div>
+          </v-card-text>
+        </v-card>
+      </v-col>
 
-
-
-
-
+      <!-- Total Revenue by Product -->
+      <!-- obj: revenue_data  -->
+      <v-col sm="12" md="6" lg="4">
+        <v-card id="card">
+          <v-card-title id="card-title">
+            <h4 class="text--text">Total Revenue by Product</h4>
+            <div class="flex_row justify-space-between">
+              <v-btn class="short__btn mr-2" outlined>Year</v-btn>
+            </div>
+          </v-card-title>
+          <v-card-text id="card-text">
+            <div class="ex_br__con flex_row align-center justify-space-around">
+              <div style="min-width: 100px; min-height: 100px;"></div>
+              <div class="flex_column">
+                <div class="flex_row align-center pa-2" v-for="item in revenue_data" :key="item.id">
+                  <div :class="item.color" class="dote mr-2" style="min-width: 15px;min-height: 6px;border-radius: 3px;"></div>
+                  <span class="subtext--text">{{ item.name }} - {{ item.percentage }}% </span>
+                </div>
+            </div>
+            </div>
+          </v-card-text>
+        </v-card>
+      </v-col>
 
     </v-row>
+
+    <!-- ROW-3 -->
+    <v-row class="row3">
+
+      <!-- Top 5 Customers by over due amount -->
+      <!-- obj:  -->
+      <v-col sm="12" md="8" lg="8">
+        <v-card id="card">
+          <v-card-title id="card-title">
+            <h4>title</h4>
+            <div class="flex_row justify-space-between">
+              <v-btn class="short__btn mr-2" outlined>Month</v-btn>
+              <v-btn class="short__btn" color="primary">Year</v-btn>
+            </div>
+          </v-card-title>
+          <v-card-text id="card-text">
+            <div class="name__con">
+              <!-- your code -->
+            </div>
+          </v-card-text>
+        </v-card>
+      </v-col>
+      
+      <!-- Age analysis of due balance -->
+      <!-- obj:  -->
+      <v-col sm="12" md="4" lg="4">
+        <v-card id="card">
+          <v-card-title id="card-title">
+            <h4>Age analysis of due balance</h4>
+          </v-card-title>
+          <v-card-text id="card-text">
+            <div class="age_graph__con mt-5">
+              <div class="age_graph">
+                <div class="flex_column justify-end mx-5" style="background: #E2E7F1;max-width: 26px;min-height: 170px;border-radius: 10px;">
+                  <div style="background: #1AD598;min-height: 100px;border-radius: 10px;"/>
+                </div>
+                <v-divider></v-divider>
+              </div>
+            </div>
+          </v-card-text>
+        </v-card>
+      </v-col>
+
+    </v-row>
+
+    <!-- ROW-4 -->
+    <v-row class="row4" style="min-height: 500px"></v-row>
+
   </v-row>
 </template>
 
@@ -109,14 +257,23 @@ export default {
    },
   data() {
     return {
-      breakdown_data: [
-        { title: 'Business -35.1k- 30%', color: 'accent2'},
-        { title: 'Office maintaince - 30%- 5.1k', color: 'primary'},
-        { title: 'Salary - 102k - 25%', color: 'accent4'},
-        { title: 'DEWA - 10k - 2%', color: 'accent1'},
-        { title: 'Office Rent -10k - 5%', color: 'accent3'},
+      revenue_data: [
+        { name: 'ERP', percentage: '50', color: 'accent2'},
+        { name: 'ATS', percentage: '23', color: 'primary'},
+        { name: 'CRM', percentage: '20', color: 'accent1'},
+        { name: 'Accounting', percentage: '10', color: 'accent4'},
+        { name: 'Others', percentage: '1', color: 'accent3'},
       ],
-      alerts: [
+      paid_invoice_data: { last30Days: '38,058', notDeposited: '8,785', deposited: '18,522.2' },
+      unpaid_invoice_data: { last365Days: '328,137', overDue: '440,652', notDueYet: '2541.20' },
+      breakdown_data: [
+        { name: 'Business', amount: '35.1k', percentage: '43', color: 'accent2'},
+        { name: 'Office maintaince', amount: '5.1k', percentage: '30', color: 'primary'},
+        { name: 'Salary', amount: '102k', percentage: '25', color: 'accent4'},
+        { name: 'DEWA', amount: '10k', percentage: '2', color: 'accent1'},
+        { name: 'Office Rent', amount: '10k', percentage: '5', color: 'accent3'},
+      ],
+      alerts_data: [
         { title: 'Receivable Alerts !', subtitle: 'Recievable exceeds 3 months', priority: 'High Priority' },
         { title: 'Overdue Alert', subtitle: 'You have 100k overdue.', priority: 'High Priority' },
         { title: 'Bank Notification', subtitle: 'Monthly service charges', priority: 'Low Priority' },

@@ -26,7 +26,7 @@
                 <v-spacer></v-spacer>
                 <v-row>
                   <v-col cols="12" class="img__sec">
-                    <v-img src="/login/accounting-preview.png"></v-img>
+                    <v-img src="/Login/accounting-preview.png"></v-img>
                   </v-col>
                 </v-row>
                 <v-spacer></v-spacer>
