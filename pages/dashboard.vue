@@ -193,19 +193,57 @@
     <v-row class="row3">
 
       <!-- Top 5 Customers by over due amount -->
-      <!-- obj:  -->
+      <!-- obj: customers_by_overdue -->
       <v-col sm="12" md="8" lg="8">
         <v-card id="card">
           <v-card-title id="card-title">
-            <h4>title</h4>
-            <div class="flex_row justify-space-between">
-              <v-btn class="short__btn mr-2" outlined>Month</v-btn>
-              <v-btn class="short__btn" color="primary">Year</v-btn>
-            </div>
+            <h4>Top 5 Customers by over due amount</h4>
           </v-card-title>
           <v-card-text id="card-text">
             <div class="name__con">
-              <!-- your code -->
+              <v-simple-table class="customersByOverDueAmount__table">
+                <template v-slot:default>
+                  <thead class="customersByOverDueAmount__thead">
+                    <tr class="customersByOverDueAmount__tr">
+                      <th class="customersByOverDueAmount__th text-left text--text h6 pr_5">
+                        Customer<br/>Name
+                      </th>
+                      <th class="customersByOverDueAmount__th text-left text--text h6 pr_5">
+                        Balance<br/>Due
+                      </th>
+                      <th class="customersByOverDueAmount__th text-left text--text h6 pr_5">
+                        Within<br/>Due
+                      </th>
+                      <th class="customersByOverDueAmount__th text-left text--text h6 pr_5">
+                        Over<br/>Due
+                      </th>
+                      <th class="customersByOverDueAmount__th text-left text--text h6">
+                        Due<br/>Invoices
+                      </th>
+                      <th class="customersByOverDueAmount__th text-right text--text h6 credit_limit__con">
+                        Above Credit<br/>Limit
+                      </th>
+                    </tr>
+                    <div class="my-4"></div>
+                  </thead>
+                  <tbody>
+                    <tr v-for="(item, index) in customers_by_overdue" :key="index" class="ma-0 pa-0">
+                      <td class="customersByOverDueAmount__td text-left text--text h6">{{ item.c_name }}</td>
+                      <td class="customersByOverDueAmount__td text-left text--text pr_5 balance_due__td">
+                        <div class="progress_bar__con">
+                          <div class="progress_bar__line">
+                            <span class="text--text txt_inside_pbl">AED{{ item.balance_due }}</span>
+                          </div>
+                        </div>
+                      </td>
+                      <td class="customersByOverDueAmount__td text-left text--text pr_5">{{ item.within_due }}</td>
+                      <td class="customersByOverDueAmount__td text-left text--text pr_5">{{ item.over_due }}</td>
+                      <td class="customersByOverDueAmount__td text-left text--text ">{{ item.due_invoice }}</td>
+                      <td class="customersByOverDueAmount__td text-right text--text">{{ item.above_credit_limit }}</td>
+                    </tr>
+                  </tbody>
+                </template>
+              </v-simple-table> 
             </div>
           </v-card-text>
         </v-card>
@@ -220,13 +258,16 @@
           </v-card-title>
           <v-card-text id="card-text">
             <div class="age_graph__con mt-5">
-              <div class="age_graph">
-                <div class="flex_column justify-end mx-5" style="background: #E2E7F1;max-width: 26px;min-height: 170px;border-radius: 10px;">
-                  <div style="background: #1AD598;min-height: 100px;border-radius: 10px;"/>
-                </div>
-                <v-divider></v-divider>
+              <LineGraph />
+              <v-divider id="divider"></v-divider>
+              <div class="age_graph__titles flex_row justify-space-around mt-2">
+                <span class="caption">Title</span>
+                <span class="caption">Title</span>
+                <span class="caption">Title</span>
+                <span class="caption">Title</span>
+                <span class="caption">Title</span>
               </div>
-            </div>
+              </div>
           </v-card-text>
         </v-card>
       </v-col>
@@ -234,18 +275,20 @@
     </v-row>
 
     <!-- ROW-4 -->
-    <v-row class="row4" style="min-height: 500px"></v-row>
+    <v-row class="row4" style="min-height: 900px"></v-row>
 
   </v-row>
 </template>
 
 <script>
 import '@/assets/scss/Dashboard/_dashboard.scss'
+import '@/assets/scss/utils/Tables/_customersByOverDueAmount.scss'
 
 import RedBellIcon from '@/assets/images/Alerts/red-bell-icon.svg'
 import YellowBellIcon from '@/assets/images/Alerts/yellow-bell-icon.svg'
 
 import OverviewTotalsViewer from '@/components/Dashboard/OverviewTotalsViewer/index.vue'
+import LineGraph from '@/components/Graphs/LineGraph/index.vue'
 
 
 export default {
@@ -254,9 +297,17 @@ export default {
     OverviewTotalsViewer,
     RedBellIcon,
     YellowBellIcon,
+    LineGraph
    },
   data() {
     return {
+      customers_by_overdue: [
+        { c_name:'Massive Dynamic', balance_due: '23,785', within_due: '1/2/2023', over_due: '1,25,489', due_invoice: '13', above_credit_limit: 'Yes' },
+        { c_name:'Massive Dynamic', balance_due: '23,785', within_due: '1/2/2023', over_due: '1,25,489', due_invoice: '13', above_credit_limit: 'Yes' },
+        { c_name:'Massive Dynamic', balance_due: '23,785', within_due: '1/2/2023', over_due: '1,25,489', due_invoice: '13', above_credit_limit: 'Yes' },
+        { c_name:'Massive Dynamic', balance_due: '23,785', within_due: '1/2/2023', over_due: '1,25,489', due_invoice: '13', above_credit_limit: 'Yes' },
+        { c_name:'Massive Dynamic', balance_due: '23,785', within_due: '1/2/2023', over_due: '1,25,489', due_invoice: '13', above_credit_limit: 'Yes' },
+      ],
       revenue_data: [
         { name: 'ERP', percentage: '50', color: 'accent2'},
         { name: 'ATS', percentage: '23', color: 'primary'},

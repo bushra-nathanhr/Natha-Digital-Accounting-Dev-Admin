@@ -56,6 +56,7 @@ body::-webkit-scrollbar {
 
 
 // *** CUSTOM ELEMENT ***
+// elements
 h1 {
     font-size: $h1-size;
     font-weight: $h1-weight;
@@ -64,7 +65,7 @@ h2 {
     font-size: $h2-size;
     font-weight: $h2-weight;
 }
-h2 {
+h3 {
     font-size: 22px;
     font-weight: 600;
 }
@@ -83,6 +84,31 @@ h6 {
 p, span, .n_text {
     font-size: $text-size;
     font-weight: $text-weight;
+}
+// classes
+.h1 {
+    font-size: $h1-size;
+    font-weight: $h1-weight;
+}
+.h2 {
+    font-size: $h2-size;
+    font-weight: $h2-weight;
+}
+.h3 {
+    font-size: 22px;
+    font-weight: 600;
+}
+.h4 {
+    font-size: $h4-size;
+    font-weight: $h4-weight;
+}
+.h5 {
+    font-size: $h5-size;
+    font-weight: $h5-weight;
+}
+.h6 {
+    font-size: $h6-size;
+    font-weight: $h6-weight;
 }
 .subtext {
     font-size: $subtext-size;
