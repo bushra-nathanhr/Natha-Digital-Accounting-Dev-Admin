@@ -1,0 +1,10 @@
+.totals_card {
+    padding: $card-padding;
+    margin: $card-margin;
+    border: $card-border;
+    border-radius: $card-border-radius;
+    background: $card-bg;
+    min-width: $small-card-min-weight;
+    min-height: $small-card-min-height;
+    box-shadow: none !important;
+}

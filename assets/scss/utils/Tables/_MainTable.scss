@@ -1,0 +1,69 @@
+// MAIN CUSTOM DATA TABLE STYLE SHEET
+
+.main__table {
+    min-width: 100%;
+    max-width: 100%;
+
+    // TOP PART
+    .top__con {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 50px;
+        
+        .search_bar {
+            max-width: 250px;
+            border-radius: 15px;
+            box-shadow: none !important;
+        }
+
+        .action__btn {}
+    }
+
+
+
+    // DATA INSIDE THE DATA TABLE PART
+
+    .status__con {
+        // max-width: 50px;
+        display: flex;
+        justify-content: start;
+        align-items: center;
+        margin: 0;
+        padding: 0;
+
+        .status {
+        min-width: fit-content;
+        max-width: 99px;
+        white-space: nowrap;
+        border-radius: 20px;
+        padding: 5px 20px;
+        margin: 0 auto;
+        font-size: 12px !important;
+        font-weight: 700 !important;
+        letter-spacing: 0.05px;
+        text-transform: uppercase;
+        text-align: center;
+        }
+    }
+
+    .actions__con {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        .print {
+            cursor: pointer;
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+}
+
+.main__table__tr td {
+    font-size: 14px !important;
+    max-width: fit-content !important;
+}
+

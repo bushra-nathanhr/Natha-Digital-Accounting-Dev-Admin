@@ -6,6 +6,7 @@ Vue.use(Vuetify)
 export const Theme1 = {
   name:'Yellow',
   light:{
+    // main colors
     primary: '#0A94FF',
     secondary: '#707070',
     accent1: '#895BF1',
@@ -22,7 +23,14 @@ export const Theme1 = {
     outline: '#E2E7F1',
     outline_dark: '#CED6E3',
     white: '#fff',
-    black: '#000'
+    black: '#000',
+
+    // light colors
+    light_primary: '#CEEAFF',
+    light_accent1: '#E7DEFC',
+    light_accent2: '#FDE0DB',
+    light_accent3: '#FFF0D6',
+    light_accent4: '#D1F7EA',
   },
   dark:{}
 }
