@@ -9,10 +9,10 @@
     <v-row class="row1">
 
       <!-- Sales Table -->
-      <!-- obj:   -->
+      <!-- obj: all_data_headers /  all_data / all_data_search / selected / new_transaction_menu -->
       <v-col sm="12" md="12" lg="12">
         <v-card id="card">
-          <v-card-text id="card-text">
+          <v-card-text id="card-text" style="margin-top: 0 !important;">
             <v-data-table
             class="main__table elevation-0"
             :v-model="all_data"
@@ -49,7 +49,27 @@
 
                 <!-- Action Buttons -->
                 <div class="action__btn">
-                  <v-btn class="tall__btn" color="primary">New Transaction</v-btn>
+                  <v-menu
+                  transition="slide-y-transition"
+                  rounded="lg"
+                  offset-y
+                  >
+                    <template v-slot:activator="{ attrs, on }">
+                      <v-btn class="tall__btn" color="primary" v-bind="attrs" v-on="on">
+                        New Transaction
+                        <LightArrow class="ml-2" style="max-width: 10px;"/>
+                      </v-btn>
+                    </template>
+
+                    <v-list>
+                      <v-list-item v-for="(item, index) in new_transaction_menu" :key="index" link>
+                      <v-list-item-title class="">
+                          <span class="n_text text--text ml-2">{{ item. title }}</span>
+                      </v-list-item-title>
+                      </v-list-item>
+                    </v-list>
+                  </v-menu>
+                  
                   <v-btn class="tall__btn ml-2 subtext--text" color="subtext" outlined>
                     <v-icon class="mr-2" small>fa-filter</v-icon>
                     Filter
@@ -63,13 +83,21 @@
             <!-- <template v-slot:header="{ props }">
               <th v-for="head in props.all_data_headers" :key="head">{{ head.text }}</th>
             </template> -->
+            <!-- <template v-for="item in all_data_headers" v-slot:[`header.${item.value}`]="{ header }">
+              <v-tooltip bottom>
+                <template v-slot:activator="{ on }">
+                  <h5 v-on="on">{{ item.text }}</h5>
+                </template>
+                <span>{{ item.text }}</span>
+              </v-tooltip>
+            </template> -->
 
             <!-- Table Rows -->
             <template v-slot:item="{ item,index }">
-              <tr>
+              <tr style="">
                 <td class="pa-0 ma-0">
-                  <div class="flex_row align-center justify-center">
-                    <v-checkbox color="outline" on-icon="fa-light fa-square-check" off-icon="fa-regular fa-square" class="mx-auto mb-2" dense hide-details :v-model="selected" ></v-checkbox>
+                  <div class="flex_row align-center justify-center" :style="{ borderLeft: '4px solid' + item.color }">
+                    <v-checkbox color="info" on-icon="fa-light fa-square-check" off-icon="fa-regular fa-square" class="mx-auto mb-2" dense hide-details :v-model="selected" ></v-checkbox>
                   </div>
                 </td>
                 <td class="pa-0 ma-0">{{ item.date }}</td>
@@ -79,7 +107,7 @@
                 <td class="pa-0 ma-0">{{ item.b_tax }}</td>
                 <td class="pa-0 ma-0">{{ item.tax }}</td>
                 <td class="pa-0 ma-0">{{ item.total }}</td>
-                <td class="pa-0 ma-0" style="min-width: fit-content !important;max-width: 130px !important;">
+                <td class="pa-0 ma-0" style="min-width: fit-content !important;max-width: 100px !important;">
                   <div class="status__con">
                     <span class="status light_accent4 accent4--text" v-if="item.status=='paid'">{{ item.status }}</span>
                     <span class="status light_accent3 accent3--text" v-if="item.status=='closed'">{{ item.status }}</span>
@@ -110,11 +138,22 @@
 import '@/assets/scss/Sales/_sales.scss'
 import '@/assets/scss/utils/Tables/_MainTable.scss'
 import TotalsCard from '@/components/Cards/TotalsCard/index.vue'
+import LightArrow from '@/assets/images/White-Light-Arrow-icon.svg'
+
 export default {
   layout: 'dashboard',
-  components: { TotalsCard }, 
+  components: { TotalsCard, LightArrow }, 
   data() { 
     return {
+      new_transaction_menu: [
+        { title: 'Invoice', value: 'invoice' },
+        { title: 'Payment', value: 'payment' },
+        { title: 'Estimate', value: 'estimate' },
+        { title: 'Sales Reciept', value: 'sales_reciept' },
+        { title: 'Tax Credit Note', value: 'tax_credit' },
+        { title: 'Time Activity', value: 'time_activity' },
+        { title: 'Journal Entry', value: 'journal_entry' },
+      ],
       selected: [],
       all_data_search: '',
       all_data: [
@@ -128,6 +167,7 @@ export default {
           tax: 'Exempt -0%',
           total: 'AED 65,500',
           status: 'paid',
+          color: '#1AD598',
           action: '',
         },
         { 
@@ -140,6 +180,7 @@ export default {
           tax: 'Exempt -0%',
           total: 'AED 65,500',
           status: 'closed',
+          color: '#FFB536',
           action: '',
         },
         { 
@@ -152,6 +193,7 @@ export default {
           tax: 'Exempt -0%',
           total: 'AED 65,500',
           status: 'converted',
+          color: '#0A94FF',
           action: '',
         },
         { 
@@ -164,6 +206,7 @@ export default {
           tax: 'Exempt -0%',
           total: 'AED 65,500',
           status: 'partially paid',
+          color: '#895BF1',
           action: '',
         },
       ],

@@ -10,7 +10,7 @@
         flex-direction: row;
         align-items: center;
         justify-content: space-between;
-        margin-bottom: 50px;
+        margin-bottom: 25px;
         
         .search_bar {
             max-width: 250px;
@@ -67,3 +67,11 @@
     max-width: fit-content !important;
 }
 
+.status__remarker {
+    border-left: 4px solid red;
+}
+
+// padding for table header
+th.text-start.sortable{
+    padding: 0 !important;
+}
