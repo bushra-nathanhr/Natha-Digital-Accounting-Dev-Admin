@@ -1,5 +1,5 @@
 <template>
-  <v-row class="wrapper-row">
+  <v-row class="wrapper_row">
     
     <!-- TOTALS CARDS -->
     <!-- component: TotalsCard  -->
@@ -136,7 +136,7 @@
 
 <script>
 import '@/assets/scss/Sales/_sales.scss'
-import '@/assets/scss/utils/Tables/_MainTable.scss'
+import '@/assets/scss/utils/Tables/_mainTable.scss'
 import TotalsCard from '@/components/Cards/TotalsCard/index.vue'
 import LightArrow from '@/assets/images/White-Light-Arrow-icon.svg'
 

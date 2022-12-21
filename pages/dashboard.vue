@@ -1,5 +1,5 @@
 <template>
-  <v-row class="wrapper-row">
+  <v-row class="wrapper_row">
 
     <!-- ROW-1 -->
     <v-row class="row1">

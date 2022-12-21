@@ -30,9 +30,9 @@ body::-webkit-scrollbar {
   body::-webkit-scrollbar-thumb {
     background-image: 
       -webkit-gradient(linear, left bottom, top,
-      color-stop(0.44, $primary),
-      color-stop(0.72, $primary),
-      color-stop(0.86, $primary)
+      color-stop(0.44, #0A94FF),
+      color-stop(0.72, #0A94FF),
+      color-stop(0.86, #0A94FF)
     );
 }
   
@@ -49,8 +49,8 @@ body::-webkit-scrollbar {
     display: flex;
     flex-direction: column;
 }
-#divider {
-    color: $outline;
+hr#divider {
+    border-color:#E2E7F1 !important;
 }
 
 

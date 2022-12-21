@@ -1,9 +1,9 @@
 <template>
-  <v-row class="wrapper-row">
+  <v-row class="wrapper_row">
     
     <!-- TOTALS CARDS -->
     <!-- component: TotalsCard  -->
-    <TotalsCard :data="total_sales_data" />
+    <TotalsCard :data="total_expense_data" />
 
     <!-- ROW-1 -->
     <v-row class="row1">
@@ -49,6 +49,8 @@
 
                 <!-- Action Buttons -->
                 <div class="action__btn">
+                  <v-btn class="tall__btn mr-2 subtext--text" color="subtext" outlined>Invoice View</v-btn>
+
                   <v-menu
                   transition="slide-y-transition"
                   rounded="lg"
@@ -72,25 +74,17 @@
                   
                   <v-btn class="tall__btn ml-2 subtext--text" color="subtext" outlined>
                     <v-icon class="mr-2" small>fa-filter</v-icon>
+                    Print
+                  </v-btn>
+
+                  <v-btn class="tall__btn ml-2 subtext--text" color="subtext" outlined>
+                    <v-icon class="mr-2" small>fa-filter</v-icon>
                     Filter
                   </v-btn>
                 </div>
 
               </div>
             </template>
-
-            <!-- Table Header -->
-            <!-- <template v-slot:header="{ props }">
-              <th v-for="head in props.all_data_headers" :key="head">{{ head.text }}</th>
-            </template> -->
-            <!-- <template v-for="item in all_data_headers" v-slot:[`header.${item.value}`]="{ header }">
-              <v-tooltip bottom>
-                <template v-slot:activator="{ on }">
-                  <h5 v-on="on">{{ item.text }}</h5>
-                </template>
-                <span>{{ item.text }}</span>
-              </v-tooltip>
-            </template> -->
 
             <!-- Table Rows -->
             <template v-slot:item="{ item,index }">
@@ -106,8 +100,14 @@
                 <td class="pa-0 ma-0">{{ item.category }}</td>
                 <td class="pa-0 ma-0">{{ item.tax }}</td>
                 <td class="pa-0 ma-0">{{ item.total }}</td>
-                <td class="pa-0 ma-0">
+                <!-- <td class="pa-0 ma-0" style="text-align: end;">
                   <v-btn class="" color="subtext" icon><v-icon small>fa-solid fa-ellipsis-vertical</v-icon></v-btn>
+                </td> -->
+                <td class="pa-0 ma-0" style="width: 30px;">
+                  <div class="actions__con">
+                    <span class="print primary--text">Print</span>
+                    <v-btn color="subtext" icon><v-icon small>fa-solid fa-ellipsis-vertical</v-icon></v-btn>
+                  </div>
                 </td>
               </tr>
             </template>
@@ -124,7 +124,7 @@
 
 <script>
 import '@/assets/scss/Sales/_sales.scss'
-import '@/assets/scss/utils/Tables/_MainTable.scss'
+import '@/assets/scss/utils/Tables/_mainTable.scss'
 import TotalsCard from '@/components/Cards/TotalsCard/index.vue'
 import LightArrow from '@/assets/images/White-Light-Arrow-icon.svg'
 
@@ -164,14 +164,13 @@ export default {
         { text: 'Category', value: 'category' },
         { text: 'Tax', value: 'tax' },
         { text: 'Total Amount', value: 'total' },
-        { text: 'Action', value: 'action', sortable: false, align: 'end' },
+        { text: 'Action', value: 'action', sortable: false },
       ],
-      total_sales_data: [
-        { name: 'Total Sales (5)', amount: '3,27,970.0' },
-        { name: 'Average Sale', amount: '540,500' },
-        { name: 'Highest Sale', amount: '3,27,970.0' },
-        { name: 'Paid invoices Due', amount: '540,500' },
-        { name: 'Unpaid invoices Due', amount: '3,27,970.0' },
+      total_expense_data: [
+        { name: 'Total Expenses (10)', amount: '109,186' },
+        { name: 'Approved Expenses (10)', amount: '540,500' },
+        { name: 'Paid Expenses (5)', amount: '3,27,970.0' },
+        { name: 'New expense this week (15)', amount: '540,500' },
      ],
     }
   }
