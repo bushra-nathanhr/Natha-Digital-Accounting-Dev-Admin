@@ -1,6 +1,6 @@
 <template>
   <div class="">
-    <v-card flat style="background-color: #f4f7f7">
+    <v-card color='card_bg'  flat style="background-color: #f4f7f7">
       <v-row>
 
         
@@ -14,7 +14,7 @@
         >
         <v-row class="py-9">
               <v-col cols="12" class="ls__con">
-                <v-row>
+                <v-row style="min-height: 20% !important">
                   <v-col cols="4">
                       <div class="header__sec">
                         <v-img src="/nathandigital-slogo.svg" min-width="50" max-width="100"></v-img>
@@ -24,13 +24,13 @@
                   </v-col>
                 </v-row>
                 <v-spacer></v-spacer>
-                <v-row>
+                <v-row  style="min-height: 20% !important">
                   <v-col cols="12" class="img__sec">
                     <v-img src="/Login/accounting-preview.png"></v-img>
                   </v-col>
                 </v-row>
                 <v-spacer></v-spacer>
-                <v-row>
+                <v-row  style="min-height: 20% !important">
                   <v-col cols="12" class="text-center">
                     <h2 class="text_light--text">
                       Simple yet powerful accounting software for businesses
@@ -171,7 +171,7 @@
                     >
                   </p>
                 </v-card-text>
-                <v-card-actions class="px-13">
+                <v-card-actions class="px-13 mt-4 mb-5">
                     <v-btn
                       type="submit"
                       block
@@ -272,7 +272,7 @@
 
 
                 <!-- FORGET PASSWORD BUTTON -->
-                <v-card-actions class="px-13">
+                <v-card-actions class="px-13 mt-4 mb-5">
                   <v-btn
                     type="submit"
                     block

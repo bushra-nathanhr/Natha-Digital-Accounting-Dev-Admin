@@ -7,7 +7,7 @@
       <!-- Overview -->
       <!-- component: OverviewTotalsViewer  -->
       <v-col sm="12" md="4" lg="4">
-        <v-card id="card">
+        <v-card color='card_bg'  id="card">
           <v-card-title id="card-title">
             <h4>Overview</h4>
             <div class="flex_row justify-space-between">
@@ -26,7 +26,7 @@
       <!-- Alerts -->
       <!-- obj: alerts_data  -->
       <v-col sm="12" md="4" lg="4">
-        <v-card id="card">
+        <v-card color='card_bg'  id="card">
           <v-card-title id="card-title">
             <h4>Alerts</h4>
             <div class="flex_row">
@@ -63,7 +63,7 @@
       <!-- Expense Breakdown -->
       <!-- obj: breakdown_data  -->
       <v-col sm="12" md="4" lg="4">
-        <v-card id="card">
+        <v-card color='card_bg'  id="card">
           <v-card-title id="card-title">
             <h4 class="text--text">Expense Breakdown</h4>
             <div class="flex_row justify-space-between">
@@ -92,7 +92,7 @@
       <!-- Unpaid Invoice -->
       <!-- obj: unpaid_invoice_data  -->
       <v-col sm="12" md="4" lg="4">
-        <v-card id="card">
+        <v-card color='card_bg'  id="card">
           <v-card-title id="card-title">
             <h4>Unpaid Invoice</h4>
             <div class="flex_row justify-space-between">
@@ -129,7 +129,7 @@
       <!-- Paid Invoice -->
       <!-- obj: paid_invoice_data  -->
       <v-col sm="12" md="4" lg="4">
-        <v-card id="card">
+        <v-card color='card_bg'  id="card">
           <v-card-title id="card-title">
             <h4>Paid Invoice</h4>
             <div class="flex_row justify-space-between">
@@ -166,7 +166,7 @@
       <!-- Total Revenue by Product -->
       <!-- obj: revenue_data  -->
       <v-col sm="12" md="4" lg="4">
-        <v-card id="card">
+        <v-card color='card_bg'  id="card">
           <v-card-title id="card-title">
             <h4 class="text--text">Total Revenue by Product</h4>
             <div class="flex_row justify-space-between">
@@ -195,7 +195,7 @@
       <!-- Top 5 Customers by over due amount -->
       <!-- obj: customers_by_overdue -->
       <v-col sm="12" md="8" lg="8">
-        <v-card id="card">
+        <v-card color='card_bg'  id="card">
           <v-card-title id="card-title">
             <h4>Top 5 Customers by over due amount</h4>
           </v-card-title>
@@ -252,7 +252,7 @@
       <!-- Age analysis of due balance -->
       <!-- obj:  -->
       <v-col sm="12" md="4" lg="4">
-        <v-card id="card">
+        <v-card color='card_bg'  id="card">
           <v-card-title id="card-title">
             <h4>Age analysis of due balance</h4>
           </v-card-title>
@@ -280,7 +280,7 @@
     <!-- Recent Bank Transactions -->
     <!-- obj: bank_tran_data -->
     <v-col sm="12" md="4" lg="4">
-      <v-card id="card">
+      <v-card color='card_bg'  id="card">
         <v-card-title id="card-title">
           <h4>Recent Bank Transactions</h4>
           <!-- <div class="flex_row">
@@ -313,7 +313,7 @@
     <!-- Sales vs Expense -->
     <!-- obj:  -->
     <v-col sm="12" md="8" lg="8">
-      <v-card id="card">
+      <v-card color='card_bg'  id="card">
         <v-card-title id="card-title">
           <h4 class="text--text">Sales vs Expense</h4>
           <div class="flex_row justify-space-between">
@@ -336,7 +336,7 @@
     <!-- Sales Revenue by customer -->
     <!-- obj:  -->
     <v-col sm="12" md="6" lg="6">
-      <v-card id="card">
+      <v-card color='card_bg'  id="card">
         <v-card-title id="card-title">
           <h4 class="text--text">Sales Revenue by customer</h4>
           <div class="flex_row justify-space-between">
@@ -354,7 +354,7 @@
     <!-- Income Statement -->
     <!-- obj:  -->
     <v-col sm="12" md="6" lg="6">
-      <v-card id="card">
+      <v-card color='card_bg'  id="card">
         <v-card-title id="card-title">
           <h4 class="text--text">Income Statement (in millions aed)</h4>
           <div class="flex_row justify-space-between">
@@ -377,7 +377,7 @@
       <!-- Recent Expense -->
       <!-- obj: recent_expense_data -->
       <v-col sm="12" md="6" lg="6">
-        <v-card id="card">
+        <v-card color='card_bg'  id="card">
           <v-card-title id="card-title">
             <h4 class="text--text">Recent Expense</h4>
           </v-card-title>
@@ -399,7 +399,7 @@
       <!-- Recent Sale -->
       <!-- obj: recent_sale_data -->
       <v-col sm="12" md="6" lg="6">
-        <v-card id="card">
+        <v-card color='card_bg'  id="card">
           <v-card-title id="card-title">
             <h4 class="text--text">Recent Sale</h4>
           </v-card-title>

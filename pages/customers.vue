@@ -6,7 +6,7 @@
         <!-- Customers List -->
         <!-- obj: customers_list / model / -->
         <v-col sm="6" md="4" lg="4">
-          <v-card id="card">
+          <v-card color='card_bg'  id="card">
             <v-card-title id="card-title">
               <h4>Customers</h4>
               <v-btn class="tall__btn" color="primary" v-bind="attrs" v-on="on">
@@ -39,7 +39,7 @@
         <!-- Customer Details -->
         <!-- obj: customers_list -->
         <v-col sm="6" md="8" lg="8">
-          <v-card id="card">
+          <v-card color='card_bg'  id="card">
             <v-card-title id="card-title">
               <h4 class="text--text">{{ selectedCustomer.company_name }}</h4>
             </v-card-title>

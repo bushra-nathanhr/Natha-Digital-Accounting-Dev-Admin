@@ -3,7 +3,7 @@
 
     <!-- Statements -->
     <v-row class="statements_row">
-      <v-card id="card">
+      <v-card color='card_bg'  id="card">
 
         <!-- chose the bank account -->
         <v-card-title id="card-title">
@@ -28,7 +28,7 @@
         <v-card-text id="card-text">
 
           <!-- Bank Account Information Card -->
-          <v-card outlined color="white" id="card" style="box-shadow:none !important;">
+          <v-card color='card_bg' outlined id="card" style="box-shadow:none !important;">
             <div class="flex_row justify-space-between">
               <span class="text--text">{{ selected_account.bank_name }} info</span>
               <v-btn color="outline" icon><v-icon small>fa-eye</v-icon></v-btn>

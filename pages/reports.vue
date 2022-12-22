@@ -120,14 +120,18 @@
 
 
     <v-spacer />
+    
+    <!-- FOOTER-->
+    <div style="width: 100%;max-height: 200px; overflow: hidden"><Footer /></div>
   </v-row>
 </template>
 
 <script>
 import ReportViewListCard from '~/components/Reports/ReportViewListCard.vue'
+import Footer from '@/components/Footer/index.vue'
 export default {
   layout: 'dashboard',
-  components: { ReportViewListCard },
+  components: { ReportViewListCard, Footer },
   data() {
     return {
       fav_reports_data: [

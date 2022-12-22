@@ -1,6 +1,6 @@
 <template>
     <div class="flex_row mt-3 pb-3">
-        <v-card class="small_card mr-1" v-for="item in data" :key="item.name">
+        <v-card color="card_bg" class="small_card mr-1" v-for="item in data" :key="item.name" style="border: 0.5px solid #E2E7F1 !important;">
             <div class="flex_row justify-space-around">
                 <div class="icon__container lighten-5" :class="item.color">
                     <BankingIcon :color="item.color" />

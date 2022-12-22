@@ -86,7 +86,7 @@
 
 
             <main class="dl__main">
-                <div class="dl__headNav" :style="{background:$vuetify.theme.themes.light.white}">
+                <div class="dl__headNav" :class=" bg==true ? 'white' : 'white' ">
                     
                     <!-- FIRST ROW -->
                     <div class="dl__header flex_row">
@@ -120,9 +120,8 @@
 
                             <!-- ACTION BUTTONS -->
                             <div class="dl__header_actions flex_row">
-                                <!-- <ThemeSwitcher /> -->
-                                <ThemeIcon />
-                                <ReloadIcon @click.stop="refresh" />
+                                <ThemeIcon class="them_icon" @click.stop="toggleTheme"/>
+                                <ReloadIcon class="them_icon" @click.stop="refresh" />
                                 <v-btn
                                 class="tall__btn"
                                 color="primary"
@@ -217,6 +216,7 @@ export default {
 
     data() {
         return {
+            bg: true,
             balance_cards: [
                 { name: 'EmiratesNBD', amount: '58,45,652', color: 'yellow' },
                 { name: 'Dubai Islamic', amount: '65,78,563', color: 'green' },
@@ -308,6 +308,11 @@ export default {
         },
         refresh() {
             console.log('page refreshed...')
+        },
+        toggleTheme() {
+            this.$vuetify.theme.dark = !this.$vuetify.theme.dark
+            this.bg = !this.bg;
+            console.log('them toggles')
         }
     },
 

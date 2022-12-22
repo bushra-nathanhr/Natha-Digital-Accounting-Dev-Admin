@@ -1,7 +1,7 @@
 <template>
     <v-row class="footer">
       <v-col sm="12" md="12" lg="12" id="footer" style="min-height: 350px;">
-        <v-card id="card">
+        <v-card color='card_bg'  id="card">
           <v-card-text id="card-text" class="flex_row align-center justify-space-between px-5">
             <div class="flex_column align-center justify-center">
               <div class="flex_row align-center justify-space-around">

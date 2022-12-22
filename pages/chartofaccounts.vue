@@ -4,7 +4,7 @@
       <!-- Chart Of Accounts Table -->
       <!-- obj: all_data_headers /  all_data / all_data_search / selected / new_transaction_menu -->
       <v-col sm="12" md="12" lg="12">
-        <v-card id="card">
+        <v-card color='card_bg'  id="card">
           <v-card-text id="card-text" style="margin-top: 0 !important;">
             <v-data-table
             class="main__table elevation-0"

@@ -160,7 +160,6 @@ p, span, .n_text {
     margin: 0 !important; /* $card-margin 'rm for grid gaps porous' */
     border: $card-border;
     border-radius: $card-border-radius;
-    background: $card-bg;
     box-shadow: $card-shadow;
     overflow: hidden;
     min-width: 100% !important;
@@ -189,7 +188,6 @@ p, span, .n_text {
     margin: $card-margin;
     border: $card-border;
     border-radius: $card-border-radius;
-    background: $card-bg;
     min-width: $small-card-min-weight;
     min-height: $small-card-min-height;
     box-shadow: none !important;

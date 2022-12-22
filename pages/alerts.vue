@@ -4,7 +4,7 @@
       <v-row class="notify_me_row">
         <v-spacer />
         <v-col sm="12" md="9" lg="9">
-          <v-card id="card">
+          <v-card color='card_bg'  id="card">
             <v-card-title id="card-title" style="padding: 0 10px">
               <h4>Notify me</h4>
               <v-switch
@@ -24,7 +24,7 @@
       <v-row class="alerts_row">
         <v-spacer />
         <v-col sm="12" md="9" lg="9">
-          <v-card id="card">
+          <v-card color='card_bg'  id="card">
               <v-card-text id="card-text" style="margin: 5px 0 !important;padding: 10px;">
 
                 <!-- Today -->
