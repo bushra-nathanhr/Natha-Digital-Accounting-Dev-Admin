@@ -116,7 +116,7 @@
 </template>
 
 <script>
-import '@/assets/scss/utils/Tables/_MainTable.scss'
+import '@/assets/scss/utils/Tables/_mainTable.scss'
 export default {
     data() {
         return {
