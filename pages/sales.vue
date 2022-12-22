@@ -1,6 +1,9 @@
 <template>
   <v-row class="wrapper_row">
     
+
+
+    <!-- *** 1 *** -->
     <!-- TOTALS CARDS -->
     <!-- component: TotalsCard  -->
     <TotalsCard :data="total_sales_data" />
@@ -42,9 +45,9 @@
                   dense
                   height="45px"
                   >
-                  <v-template slot="prepend-inner">
+                  <template slot="prepend-inner">
                     <v-btn icon><v-icon small>fa-search</v-icon></v-btn>
-                  </v-template>
+                  </template>
                 </v-text-field>
 
                 <!-- Action Buttons -->
@@ -130,8 +133,9 @@
       </v-col>
 
     </v-row>
+    <!-- *** / 1 *** -->
 
-</v-row>
+  </v-row>
 </template>
 
 <script>

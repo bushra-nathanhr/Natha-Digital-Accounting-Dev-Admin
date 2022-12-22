@@ -95,9 +95,9 @@
                         dense
                         height="45px"
                         >
-                        <v-template slot="prepend-inner">
+                        <template slot="prepend-inner">
                           <v-btn icon><v-icon small>fa-search</v-icon></v-btn>
-                        </v-template>
+                        </template>
                       </v-text-field>
                       <v-btn class="tall__btn ml-2 subtext--text" color="subtext" outlined>
                         <v-icon class="mr-2" small>fa-filter</v-icon>

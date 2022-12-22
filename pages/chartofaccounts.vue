@@ -57,9 +57,9 @@
                     dense
                     height="45px"
                     >
-                    <v-template slot="prepend-inner">
+                    <template slot="prepend-inner">
                       <v-btn icon><v-icon small>fa-search</v-icon></v-btn>
-                    </v-template>
+                    </template>
                   </v-text-field>
                 </div>
 

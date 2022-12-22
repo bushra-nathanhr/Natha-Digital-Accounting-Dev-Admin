@@ -102,7 +102,7 @@
                             <!-- DATE + PAGE NAME -->
                             <div class="dn__header flex_column">
                                 <p v-if="$nuxt.$route.name == 'dashboard'" class="subtext--text ma-0 pa-0">Sunday, August 16</p>
-                                <h2 v-if="$nuxt.$route.name != 'dashboard'" class="text--text ma-0 pa-0">Chart Of Accounts</h2>
+                                <h2 v-if="$nuxt.$route.name != 'dashboard'" class="text--text ma-0 pa-0">{{ $nuxt.$route.name }}</h2>
                             </div>
                             <!-- / DATE + PAGE NAME -->
 
@@ -110,7 +110,8 @@
 
                             <!-- TABS -->
                             <div class="tabs__header_con">
-                                <HeaderTabs v-if="$nuxt.$route.name == 'sales' || $nuxt.$route.name == 'expenses' || $nuxt.$route.name == 'reports' || $nuxt.$route.name == 'banking'"/>
+                                <HeaderTabs @tabValue="handleTabValue($event)" v-if="$nuxt.$route.name == 'sales'" :data="tabs_data.sales" />
+                                <HeaderTabs v-if="$nuxt.$route.name == 'expenses'" :data="tabs_data.expenses" />
                             </div>
                             <!-- / TABS -->
 
@@ -182,6 +183,7 @@ import PrivacyIcon from '@/assets/images/DashboardLayout/Privacy-icon.svg'
 import AccountsDropDownMenu from '@/components/Layout/AccountsDropDownMenu/index.vue'
 import HeaderTabs from '@/components/Layout/HeaderTabs/index.vue'
 import CardWithIcon from '@/components/Cards/CardWithIcon/index.vue'
+import { all } from 'q'
 
 
 
@@ -216,6 +218,22 @@ export default {
 
     data() {
         return {
+            tab_current_val: 'all',
+            tabs_data: {
+                sales: [
+                    { title: 'All Sales', value: 'all' },
+                    { title: 'Invoices', value: 'invoices' },
+                    { title: 'Products/Services', value: 'products' },
+                    { title: 'Forecast', value: 'forecast' },
+                ],
+                expenses: [
+                    { title: 'All Expenses', value: 'all' },
+                    { title: 'Suppliers', value: 'suppliers' },
+                    { title: 'Forecast', value: 'forecast' },
+                    { title: 'Expense Breakdown', value: 'breakdown' },
+                    { title: 'Reimbursement', value: 'reimbursement' },
+                ],
+            },
             bg: true,
             balance_cards: [
                 { name: 'EmiratesNBD', amount: '58,45,652', color: 'yellow' },
@@ -299,12 +317,12 @@ export default {
     },
 
     methods: {
+        handleTabValue(payload) {
+            this.tab_current_val = payload
+            console.log('tab_current_val ==>', this.tab_current_val)
+        },
         handleLinks(value) {
             this.SideNavMaskerValue = value.text
-            console.log('obj ==> ', value)
-            console.log('obj.route ==> ', value.text)
-            console.log('selected Route ==> ', this.SideNavMaskerValue)
-            console.log('Side Nav Masker Value ==> ', this.SideNavMaskerValue)
         },
         refresh() {
             console.log('page refreshed...')
@@ -312,7 +330,6 @@ export default {
         toggleTheme() {
             this.$vuetify.theme.dark = !this.$vuetify.theme.dark
             this.bg = !this.bg;
-            console.log('them toggles')
         }
     },
 
