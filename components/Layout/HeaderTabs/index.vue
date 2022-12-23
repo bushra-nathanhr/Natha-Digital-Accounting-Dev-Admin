@@ -9,7 +9,7 @@ export default {
     props: { data: Object },
     data() {
         return {
-            tab_val: null,
+            tab_val: 'all',
         }
     },
     methods: {

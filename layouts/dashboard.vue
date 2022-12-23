@@ -183,13 +183,11 @@ import PrivacyIcon from '@/assets/images/DashboardLayout/Privacy-icon.svg'
 import AccountsDropDownMenu from '@/components/Layout/AccountsDropDownMenu/index.vue'
 import HeaderTabs from '@/components/Layout/HeaderTabs/index.vue'
 import CardWithIcon from '@/components/Cards/CardWithIcon/index.vue'
-import { all } from 'q'
 
 
 
 export default {
     name: 'dashboard',
-
     components: {
         DB_SideNavMasker ,
         SAL_SideNavMasker,
@@ -215,7 +213,6 @@ export default {
         HeaderTabs,
         CardWithIcon,
     },
-
     data() {
         return {
             tab_current_val: 'all',
@@ -315,11 +312,20 @@ export default {
             ],
         }
     },
-
     methods: {
         handleTabValue(payload) {
+            
+            console.log("Emitted Value from HeaderTabs Component  ==> ", payload)
+            
+            // Setting the payload value
             this.tab_current_val = payload
-            console.log('tab_current_val ==>', this.tab_current_val)
+
+            // Setting the payload value in the localStorage under name selected_tab
+            localStorage.setItem("selected_tab", payload);
+
+            // Emitting an event call tabChanged with the tab current value
+            this.$nuxt.$emit("tabChanged" ,payload)
+
         },
         handleLinks(value) {
             this.SideNavMaskerValue = value.text
@@ -332,10 +338,5 @@ export default {
             this.bg = !this.bg;
         }
     },
-
 }
 </script>
-
-<style>
-
-</style>
