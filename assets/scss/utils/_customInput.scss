@@ -1,0 +1,31 @@
+.cic__container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    label {
+        font-size: 14px !important;
+        font-weight: 600;
+        text-transform: capitalize;
+        margin-left: 5px;
+    }
+
+    input, select, option {
+        font-weight: 500 !important;
+    }
+
+    .v-text-field {
+      padding-top: 0px !important;
+      margin-top: 0px !important;
+      border-radius: 10px !important;
+      box-shadow: none !important;
+  
+      .v-input__slot {
+        &::before {
+          content: none !important;
+        }
+      }
+  
+    }
+
+}

@@ -26,14 +26,16 @@
 
                     <!-- *** TEXT FIELD *** -->
                     <div class="flex_column justify-start align-start">
-                        <span class="text--text mb-2 ml-1 h6">Text Field Input</span>
+                        <span class="text--text mb-2 ml-1 h6">CUSTOMER NAME</span>
                         <v-text-field
-                            placeholder="Hint Text"
+                            placeholder="Enter Point Of Contact"
                             solo
                             color="primary"
                             outlined
                             class=" elevation-0"
-                            style="border-radius: 10px !important;"
+                            style="border-radius: 10px !important;min-width: 350px;"
+                            height="49px"
+                            full-width
                             flat
                         ></v-text-field>
                     </div>

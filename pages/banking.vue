@@ -1,7 +1,182 @@
 <template>
   <v-row class="wrapper_row">
 
-    <!-- Statements -->
+
+    <!-- SNACKBAR -->
+    <v-snackbar v-show="snackbar_data.snackbar" class="snackbar" :timeout="snackbar_data.timeout" v-model="snackbar_data.snackbar" top min-width="100%" min-height="30px" rounded="0" elevation="0" :color="snackbar_data.color">
+      <div>
+        <v-icon small color="white" v-if="snackbar_data.color=='success'">fa-check</v-icon>
+        <v-icon small color="error" v-else>fa-close</v-icon>
+        <span class="text_light--text ml-3">{{ snackbar_data.text }}</span>
+      </div>
+    </v-snackbar>
+
+    <!-- FILTER DIALOG -->
+    <v-dialog id="custom_dialog" v-model="filterDialog" persistent max-width="500px">
+      <v-card id="card" style="padding: 20px 30px !important">
+        <v-card-title id="card-title">
+            <h4 class="text--text">Filter</h4>
+            <v-icon small color="subtext" class="ml-5" @click="filterDialog=false">fa-close</v-icon>
+        </v-card-title>
+        <v-card-text id="card-text">
+          <v-container class="ma-0 pa-0">
+              <v-radio-group v-model="radioGroup">
+              <v-radio value="all">
+                  <template v-slot:label>
+                    <span class="text--text">All</span>
+                  </template>
+              </v-radio>
+              <v-radio value="week">
+                  <template v-slot:label>
+                    <span class="text--text">Week to date</span>
+                  </template>
+              </v-radio>
+              <v-radio value="month">
+                  <template v-slot:label>
+                    <span class="text--text">This month to date</span>
+                  </template>
+              </v-radio>
+              <v-radio value="quarter">
+                  <template v-slot:label>
+                    <span class="text--text">This quarter to date</span>
+                  </template>
+              </v-radio>
+              <v-radio value="year">
+                  <template v-slot:label>
+                    <span class="text--text">This year to date</span>
+                  </template>
+              </v-radio>
+              <v-radio value="specific">
+                <template v-slot:label>
+                  <span class="text--text" @click="customDataDisabled=!customDataDisabled">Specific dates</span>
+                </template>
+              </v-radio>
+              </v-radio-group>
+              <div class="custom_data">
+                <v-row class="ma-0 pa-0">
+                  <v-spacer></v-spacer>
+                  <v-col cols="8" class="ma-0 pa-0">
+                    <div class="flex_row align-baseline ">
+                      <span>From</span>
+                    <div><v-select :disabled="customDataDisabled" :items="daysOfWeek" placeholder="12" style="max-width: 90px !important" class="ml-9"></v-select></div>
+                    <div><v-select :disabled="customDataDisabled" :items="monthsOfYear" placeholder="Jan" style="max-width: 90px !important" class="ml-3"></v-select></div>
+                    <div><v-select :disabled="customDataDisabled" :items="Years" placeholder="2022" style="max-width: 120px !important" class="ml-3"></v-select></div>
+                    </div>
+                  </v-col>
+                </v-row>
+                <v-row class="ma-0 pa-0">
+                  <v-spacer></v-spacer>
+                  <v-col cols="8" class="ma-0 pa-0">
+                    <div class="flex_row align-baseline ">
+                      <span>Till</span>
+                    <div><v-select :disabled="customDataDisabled" :items="daysOfWeek" placeholder="14" style="max-width: 90px !important" class="ml-9"></v-select></div>
+                    <div><v-select :disabled="customDataDisabled" :items="monthsOfYear" placeholder="Mar" style="max-width: 90px !important" class="ml-3"></v-select></div>
+                    <div><v-select :disabled="customDataDisabled" :items="Years" placeholder="2022" style="max-width: 120px !important" class="ml-3"></v-select></div>
+                  </div>
+                  </v-col>
+                </v-row>
+              </div>
+              <div class="other_filters mt-2">
+                <v-row>
+                  <v-col cols="6" class="ma-0 pa-0"><v-checkbox color="primary" label="Customer"></v-checkbox></v-col>
+                  <v-col cols="6" class="ma-0 pa-0"><v-select :items="customerFilter" label="All"></v-select></v-col>
+                  <v-col cols="6" class="ma-0 pa-0"><v-checkbox color="primary" label="Status"></v-checkbox></v-col>
+                  <v-col cols="6" class="ma-0 pa-0"><v-select :items="statusFilter" label="Paid"></v-select></v-col>
+                </v-row>
+              </div>
+              <v-row class="action_btn mt-5">
+                <v-col cols="5" class="ma-0 pa-0"><v-btn class="tall__btn" color="subtext" block outlined><span class="primary--text">Clear All</span></v-btn></v-col>
+                <v-spacer></v-spacer>
+                <v-col cols="6" class="ma-0 pa-0"><v-btn class="tall__btn" color="primary" block @click="handleApplyFilter">Apply</v-btn></v-col>
+              </v-row>
+          </v-container>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
+
+
+    <!-- UPLOAD STATEMENT DIALOG -->
+    <v-dialog v-model="uploadStatementDialog" persistent max-width="500px">
+      <v-card id="card" style="padding: 20px 30px !important">
+        <v-card-title id="card-title">
+            <h4 class="text--text">Upload Statement</h4>
+            <v-icon small color="subtext" class="ml-5" @click="uploadStatementDialog=false">fa-close</v-icon>
+        </v-card-title>
+        <v-card-text id="card-text">
+          <v-container class="ma-0 pa-0">
+            <v-row class="ma-0 pa-0">
+              <v-col sm="12" md="12" lg="12" class="px-0">
+                <CustomInputContainer label="SELECT BANK">
+                  <div slot="input">
+                    <v-select :items="banks" v-model="selectBank" placeholder="EmiratesNBD" outlined hide-details></v-select>
+                  </div>
+                </CustomInputContainer>
+              </v-col>
+              <v-col sm="12" md="12" lg="12" class="px-0">
+                <FileDropZone />
+              </v-col>
+              <v-col sm="12" md="12" lg="12" class="px-0">
+                <v-btn class="tall__btn" color="primary" block @click="handelProceed">Proceed</v-btn>
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
+
+
+    <!-- STATEMENT CONFIRMATION DIALOG -->
+    <v-dialog v-model="statementConfirmationDialog" persistent max-width="90%">
+    <v-card id="card" style="padding: 20px 30px !important">
+      <v-card-title id="card-title">
+        <h4 class="text--text">Uploaded Statements</h4>
+        <div class="flex_row align-center">
+          <v-btn color="subtext" class="tall__btn mr-3" outlined @click="statementConfirmationDialog=false">Cancel</v-btn>
+          <v-btn color="primary" class="tall__btn" @click="statementApproving">Approve & Upload</v-btn>
+        </div>
+      </v-card-title>
+      <v-card-text id="card-text">
+        <v-data-table
+              class="main__table elevation-0"
+              :v-model="selected_account.account_statement"
+              :headers="all_data_headers"
+              :items="selected_account.account_statement"
+              :search="all_data_search"
+              item-key="selected"
+              selectable-key="id"
+              show-select
+              hide-default-footer
+              >
+              <template v-slot:item="{ item,index }">
+                <tr style="">
+                  <td class="pa-0 ma-0">
+                    <div class="flex_row align-center justify-center" :style="{ borderLeft: '4px solid' + item.color }">
+                      <v-checkbox color="info" on-icon="fa-light fa-square-check" off-icon="fa-regular fa-square" class="mx-auto mb-2" dense hide-details :v-model="selected" ></v-checkbox>
+                    </div>
+                  </td>
+                  <td class="pa-0 ma-0">{{ item.date }}</td>
+                  <td class="pa-0 ma-0">{{ item.description }}</td>
+                  <td class="pa-0 ma-0">{{ item.no }}</td>
+                  <td class="pa-0 ma-0">{{ item.debit }}</td>
+                  <td class="pa-0 ma-0">{{ item.credit }}</td>
+                  <td class="pa-0 ma-0">{{ item.balance }}</td>
+                  <td class="pa-0 ma-0" style="width: 30px;">
+                    <div class="actions__con">
+                      <span class="print primary--text">Print</span>
+                      <v-btn color="subtext" icon><v-icon small>fa-solid fa-ellipsis-vertical</v-icon></v-btn>
+                    </div>
+                  </td>
+                </tr>
+              </template>
+
+        </v-data-table>
+      </v-card-text>
+    </v-card>
+    </v-dialog>
+
+
+
+    <!-- STATEMENT -->
     <v-row class="statements_row">
       <v-card color='card_bg'  id="card">
 
@@ -82,7 +257,7 @@
                   <div class="top__con">
                     <h4>Statements For NBD</h4>
                     <div class="action__btn flex_row">
-                      <v-btn class="tall__btn text_light--text" color="primary">Upload statement</v-btn>
+                      <v-btn class="tall__btn text_light--text" color="primary" @click="uploadStatementDialog=true">Upload statement</v-btn>
                       <v-text-field
                         class="search_bar ml-2"
                         v-model="all_data_search"
@@ -99,7 +274,7 @@
                           <v-btn icon><v-icon small>fa-search</v-icon></v-btn>
                         </template>
                       </v-text-field>
-                      <v-btn class="tall__btn ml-2 subtext--text" color="subtext" outlined>
+                      <v-btn class="tall__btn ml-2 subtext--text" color="subtext" outlined @click="filterDialog=true">
                         <v-icon class="mr-2" small>fa-filter</v-icon>
                         Filter
                       </v-btn>
@@ -137,18 +312,36 @@
         </v-card-text>
       </v-card>
     </v-row>
+
+
   </v-row>
 </template>
 
 <script>
 import '@/assets/scss/Banking/_banking.scss'
+import CustomInputContainer from '@/components/utils/CustomInputContainer.vue'
+import FileDropZone from '@/components/utils/FileDropzone.vue'
 
 export default {
   layout: 'dashboard',
-  components: {},
+  components: { CustomInputContainer, FileDropZone },
   data() {
     return {
-      // Current User Selected Account
+      // FILTER
+      filterDialog: false,
+      filter_by: [ 'All', 'Week to date', 'This month to date', 'This quarter to date', 'This year to date', 'Specific dates'], 
+      customerFilter: ['All', 'Other',],
+      statusFilter: ['Paid', 'Unpaid'],
+      daysOfWeek: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      monthsOfYear: ['Jan', 'Feb', 'Mar', 'Apr'],
+      Years: [2022, 2021, 2020],
+      customDataDisabled: true,
+
+      
+      snackbar_data: { snackbar: false, text: 'Successfully', color: 'success', timeout: 2000 },
+      statementConfirmationDialog: false,
+      banks: ['Emeritus NBD', 'ADCB'],
+      uploadStatementDialog: false,
       selected_account: [],
 
       // Data Table
@@ -226,6 +419,18 @@ export default {
     }
   },
   methods: {
+    handleApplyFilter() {
+      this.filterDialog = false
+    },
+    statementApproving() {
+      this.snackbar_data = { snackbar: true, text: 'Statements Uploaded', color: 'success', timeout: 2000 }
+      this.statementConfirmationDialog = false
+
+    },
+    handelProceed() {
+      this.statementConfirmationDialog = true
+      this.uploadStatementDialog = false
+    },
     handleBankAccount(value) {
       this.selected_account = value
       console.log('BANK DATA ==>', value)

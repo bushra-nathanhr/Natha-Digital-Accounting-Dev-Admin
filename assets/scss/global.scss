@@ -216,3 +216,29 @@ p, span, .n_text {
     max-width: 100% !important;
     max-height: 100% !important;
 }
+
+
+
+// *** SNACKBAR ***
+.snackbar {
+    width: 100%;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    text-align: center !important;
+    div {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+}
+
+
+
+// *** DIALOG ***
+#custom_dialog {}
+.v-dialog.v-dialog--active.v-dialog--persistent {
+    max-height: fit-content !important;
+}
