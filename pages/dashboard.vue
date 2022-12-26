@@ -499,13 +499,13 @@ export default {
       unpaid_invoice_data: { last365Days: '328,137', overDue: '440,652', notDueYet: '2541.20' },
       breakdown_data: [
         { name: 'Business', amount: '35.1k', percentage: '43', color: 'accent2'},
-        { name: 'Office maintaince', amount: '5.1k', percentage: '30', color: 'primary'},
+        { name: 'Office maintained', amount: '5.1k', percentage: '30', color: 'primary'},
         { name: 'Salary', amount: '102k', percentage: '25', color: 'accent4'},
         { name: 'DEWA', amount: '10k', percentage: '2', color: 'accent1'},
         { name: 'Office Rent', amount: '10k', percentage: '5', color: 'accent3'},
       ],
       alerts_data: [
-        { title: 'Receivable Alerts !', subtitle: 'Recievable exceeds 3 months', priority: 'High Priority' },
+        { title: 'Receivable Alerts !', subtitle: 'Receivable exceeds 3 months', priority: 'High Priority' },
         { title: 'Overdue Alert', subtitle: 'You have 100k overdue.', priority: 'High Priority' },
         { title: 'Bank Notification', subtitle: 'Monthly service charges', priority: 'Low Priority' },
       ],
@@ -522,7 +522,3 @@ export default {
 
 }
 </script>
-
-<style>
-
-</style>

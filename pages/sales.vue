@@ -2,7 +2,6 @@
   <v-row class="wrapper_row">
     
 
-
     <!-- *** TOTALS CARDS *** -->
     <TotalsCard v-if="currentTab == 'all'" :data="total_sales" />
     <TotalsCard v-if="currentTab == 'invoices'" :data="total_invoices" />
@@ -14,7 +13,7 @@
     <v-row class="mid_row" v-if="currentTab == 'forecast'">
 
       <v-col sm="12" md="4" lg="4">
-        <v-card id="card">
+        <v-card color="card_bg" id="card">
           <v-card-title id="card-title">
             <h4>Forecasted & Target Sales</h4>
             <div class="flex_row justify-space-between align-center">
@@ -31,7 +30,7 @@
               </h5>
               <h5 class="flex_row align-center">
                 <div class="dote mr-3 primary" style="min-width: 5px;max-width: 5px;min-height: 25px;border-radius: 3px;"></div>
-                Forcasted Sales (15)
+                Forecasted Sales (15)
               </h5>
             </div>
             <div class="graph__con pt-9">
@@ -74,7 +73,7 @@
 
 
             
-            <v-data-table id="SALES" v-if="currentTab == 'all'"
+            <v-data-table id="ALL_SALES" v-if="currentTab == 'all'"
             class="main__table elevation-0"
             :v-model="sales_data"
             :headers="sales_headers"
@@ -456,7 +455,7 @@ export default {
         { name: 'Reoccurring Revenue', color: 'primary' },
         { name: 'Sales Target', color: 'accent3' },
       ],
-      currentTab:'sales',
+      currentTab:'all',
       new_transaction_menu: [
         { title: 'Invoice', value: 'invoice' },
         { title: 'Payment', value: 'payment' },
@@ -663,10 +662,6 @@ export default {
         // return localStorage.getItem("selected_tab")
       // }
     },
-    getValues() {
-      // return this.$store.getters['tabs/toggleCurrentTab']
-      return this.$store.state.tabs.tab_current_val
-    }
   }
 }
 </script>

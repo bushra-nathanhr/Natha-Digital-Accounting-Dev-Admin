@@ -111,7 +111,7 @@
                             <!-- TABS -->
                             <div class="tabs__header_con">
                                 <HeaderTabs @tabValue="handleTabValue($event)" v-if="$nuxt.$route.name == 'sales'" :data="tabs_data.sales" />
-                                <HeaderTabs v-if="$nuxt.$route.name == 'expenses'" :data="tabs_data.expenses" />
+                                <HeaderTabs @tabValue="handleTabValue($event)" v-if="$nuxt.$route.name == 'expenses'" :data="tabs_data.expenses" />
                             </div>
                             <!-- / TABS -->
 
