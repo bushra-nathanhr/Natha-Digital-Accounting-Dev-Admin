@@ -20,7 +20,7 @@
         </v-card-title>
         <v-card-text id="card-text">
           <v-container class="ma-0 pa-0">
-              <v-radio-group v-model="radioGroup">
+              <v-radio-group v-model="filterDialog">
               <v-radio value="all">
                   <template v-slot:label>
                     <span class="text--text">All</span>
@@ -337,7 +337,7 @@ export default {
       Years: [2022, 2021, 2020],
       customDataDisabled: true,
 
-      
+
       snackbar_data: { snackbar: false, text: 'Successfully', color: 'success', timeout: 2000 },
       statementConfirmationDialog: false,
       banks: ['Emeritus NBD', 'ADCB'],

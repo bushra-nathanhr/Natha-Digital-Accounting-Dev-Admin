@@ -11,7 +11,7 @@
         </v-card-title>
         <v-card-text id="card-text">
           <v-container class="ma-0 pa-0">
-              <v-radio-group v-model="radioGroup">
+              <v-radio-group>
               <v-radio value="all">
                   <template v-slot:label>
                     <span class="text--text">All</span>

@@ -11,90 +11,21 @@
     </v-snackbar>
 
     <!-- ADD NEW DIALOG -->
-    <v-dialog id="custom_dialog" v-model="addNewDialog" persistent max-width="900px">
-      <v-card id="card" style="padding: 20px 30px !important">
-        <v-card-title id="card-title">
-            <h4 class="text--text">Account</h4>
-            <div class="flex_row justify-lg-space-between">
-              <v-btn class="tall__btn mr-2" color="subtext" outlined>Cancel</v-btn>
-              <v-btn class="tall__btn px-9" color="primary">Add</v-btn>
-            </div>
-        </v-card-title>
-        <v-divider id="divider" class="mt-3"></v-divider>
-        <v-card-text id="card-text">
-          <v-container class="ma-0 pa-0">
-              <v-radio-group v-model="radioGroup">
-              <v-radio value="all">
-                  <template v-slot:label>
-                    <span class="text--text">All</span>
-                  </template>
-              </v-radio>
-              <v-radio value="week">
-                  <template v-slot:label>
-                    <span class="text--text">Week to date</span>
-                  </template>
-              </v-radio>
-              <v-radio value="month">
-                  <template v-slot:label>
-                    <span class="text--text">This month to date</span>
-                  </template>
-              </v-radio>
-              <v-radio value="quarter">
-                  <template v-slot:label>
-                    <span class="text--text">This quarter to date</span>
-                  </template>
-              </v-radio>
-              <v-radio value="year">
-                  <template v-slot:label>
-                    <span class="text--text">This year to date</span>
-                  </template>
-              </v-radio>
-              <v-radio value="specific">
-                <template v-slot:label>
-                  <span class="text--text" @click="customDataDisabled=!customDataDisabled">Specific dates</span>
-                </template>
-              </v-radio>
-              </v-radio-group>
-              <div class="custom_data">
-                <v-row class="ma-0 pa-0">
-                  <v-spacer></v-spacer>
-                  <v-col cols="8" class="ma-0 pa-0">
-                    <div class="flex_row align-baseline ">
-                      <span>From</span>
-                    <div><v-select :disabled="customDataDisabled" :items="daysOfWeek" placeholder="12" style="max-width: 90px !important" class="ml-9"></v-select></div>
-                    <div><v-select :disabled="customDataDisabled" :items="monthsOfYear" placeholder="Jan" style="max-width: 90px !important" class="ml-3"></v-select></div>
-                    <div><v-select :disabled="customDataDisabled" :items="Years" placeholder="2022" style="max-width: 120px !important" class="ml-3"></v-select></div>
-                    </div>
-                  </v-col>
-                </v-row>
-                <v-row class="ma-0 pa-0">
-                  <v-spacer></v-spacer>
-                  <v-col cols="8" class="ma-0 pa-0">
-                    <div class="flex_row align-baseline ">
-                      <span>Till</span>
-                    <div><v-select :disabled="customDataDisabled" :items="daysOfWeek" placeholder="14" style="max-width: 90px !important" class="ml-9"></v-select></div>
-                    <div><v-select :disabled="customDataDisabled" :items="monthsOfYear" placeholder="Mar" style="max-width: 90px !important" class="ml-3"></v-select></div>
-                    <div><v-select :disabled="customDataDisabled" :items="Years" placeholder="2022" style="max-width: 120px !important" class="ml-3"></v-select></div>
-                  </div>
-                  </v-col>
-                </v-row>
+    <v-dialog v-model="addNewDialog" class="ma-0 pa-0">
+      <div class="my_dialog">
+        <v-card id="tall_dialog">
+          <v-card-title id="card-title">
+              <h4 class="text--text">Account</h4>
+              <div class="flex_row justify-lg-space-between">
+                <v-btn class="tall__btn mr-2" color="subtext" outlined>Cancel</v-btn>
+                <v-btn class="tall__btn px-9" color="primary">Add</v-btn>
               </div>
-              <div class="other_filters mt-2">
-                <v-row>
-                  <v-col cols="6" class="ma-0 pa-0"><v-checkbox color="primary" label="Customer"></v-checkbox></v-col>
-                  <v-col cols="6" class="ma-0 pa-0"><v-select :items="customerFilter" label="All"></v-select></v-col>
-                  <v-col cols="6" class="ma-0 pa-0"><v-checkbox color="primary" label="Status"></v-checkbox></v-col>
-                  <v-col cols="6" class="ma-0 pa-0"><v-select :items="statusFilter" label="Paid"></v-select></v-col>
-                </v-row>
-              </div>
-              <v-row class="action_btn mt-5">
-                <v-col cols="5" class="ma-0 pa-0"><v-btn class="tall__btn" color="subtext" block outlined><span class="primary--text">Clear All</span></v-btn></v-col>
-                <v-spacer></v-spacer>
-                <v-col cols="6" class="ma-0 pa-0"><v-btn class="tall__btn" color="primary" block @click="handleApplyFilter">Apply</v-btn></v-col>
-              </v-row>
-          </v-container>
-        </v-card-text>
-      </v-card>
+          </v-card-title>
+          <v-divider id="divider" class="mt-3"></v-divider>
+          <v-card-text id="card-text">
+          </v-card-text>
+        </v-card>
+      </div>
     </v-dialog>
 
     
@@ -108,7 +39,7 @@
         </v-card-title>
         <v-card-text id="card-text">
           <v-container class="ma-0 pa-0">
-              <v-radio-group v-model="radioGroup">
+              <v-radio-group>
               <v-radio value="all">
                   <template v-slot:label>
                     <span class="text--text">All</span>
