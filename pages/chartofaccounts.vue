@@ -2,11 +2,18 @@
   <v-row class="wrapper_row">
 
     <!-- SNACKBAR -->
-    <v-snackbar v-show="snackbar_data.snackbar" class="snackbar" :timeout="snackbar_data.timeout" v-model="snackbar_data.snackbar" top min-width="100%" min-height="30px" rounded="0" elevation="0" :color="snackbar_data.color">
+    <v-snackbar v-show="printedSnackbar.snackbar" class="snackbar" :timeout="printedSnackbar.timeout" v-model="printedSnackbar.snackbar" top min-width="100%" min-height="30px" rounded="0" elevation="0" :color="printedSnackbar.color">
       <div>
-        <v-icon small color="white" v-if="snackbar_data.color=='success'">fa-check</v-icon>
+        <v-icon small color="white" v-if="printedSnackbar.color=='success'">fa-check</v-icon>
         <v-icon small color="error" v-else>fa-close</v-icon>
-        <span class="text_light--text ml-3">{{ snackbar_data.text }}</span>
+        <span class="text_light--text ml-3">{{ printedSnackbar.text }}</span>
+      </div>
+    </v-snackbar>
+    <v-snackbar v-show="itemAddedSnackbar.snackbar" class="snackbar" :timeout="itemAddedSnackbar.timeout" v-model="itemAddedSnackbar.snackbar" top min-width="100%" min-height="30px" rounded="0" elevation="0" :color="itemAddedSnackbar.color">
+      <div>
+        <v-icon small color="white" v-if="itemAddedSnackbar.color=='success'">fa-check</v-icon>
+        <v-icon small color="error" v-else>fa-close</v-icon>
+        <span class="text_light--text ml-3">{{ itemAddedSnackbar.text }}</span>
       </div>
     </v-snackbar>
 
@@ -17,12 +24,76 @@
           <v-card-title id="card-title">
               <h4 class="text--text">Account</h4>
               <div class="flex_row justify-lg-space-between">
-                <v-btn class="tall__btn mr-2" color="subtext" outlined>Cancel</v-btn>
-                <v-btn class="tall__btn px-9" color="primary">Add</v-btn>
+                <v-btn class="tall__btn mr-2 px-5" color="subtext" outlined>Cancel</v-btn>
+                <v-btn class="tall__btn px-9" color="primary" min-width="150px" @click="handleAddNewItem">Add</v-btn>
               </div>
           </v-card-title>
-          <v-divider id="divider" class="mt-3"></v-divider>
+          <v-divider id="divider" class="mt-5"></v-divider>
           <v-card-text id="card-text">
+            <v-container class="px-0 pt-0 mt-0">
+              <v-row>
+                <v-col cols="4" class="px-0">
+                  <CustomInputContainer label="Account type">
+                    <div slot="input">
+                      <v-select v-model="new_account.type" :items="allAccountsTypes" placeholder="Select Account Type" outlined hide-details></v-select>
+                    </div>
+                  </CustomInputContainer>
+                </v-col>
+                <v-col cols="4">
+                  <CustomInputContainer label="Bank Name">
+                    <div slot="input">
+                      <v-text-field v-model="new_account.name" placeholder="Bank" outlined hide-details></v-text-field>
+                    </div>
+                  </CustomInputContainer>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col cols="8" class="px-0">
+                  <CustomInputContainer label="Description">
+                    <div slot="input">
+                      <v-text-field v-model="description" placeholder="Enter Desc" outlined hide-details></v-text-field>
+                    </div>
+                  </CustomInputContainer>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col cols="8" class="flex_row align-end px-0">
+                  <v-checkbox label="is sub-account" v-model="isSubAccount"></v-checkbox>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col cols="4" class="px-0">
+                  <CustomInputContainer label="sub-account">
+                    <div slot="input">
+                      <v-select v-model="sub_account" :items="allSubAccounts" placeholder="Enter parent account" outlined hide-details :disabled="!isSubAccount"></v-select>
+                    </div>
+                  </CustomInputContainer>
+                </v-col>
+                <v-col cols="4">
+                  <CustomInputContainer label="Default Tax code">
+                    <div slot="input">
+                      <v-select v-model="new_account.tax" :items="allTaxCodes" placeholder="Select Tax Code" outlined hide-details></v-select>
+                    </div>
+                  </CustomInputContainer>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col cols="4" class="px-0">
+                  <CustomInputContainer label="Balance">
+                    <div slot="input">
+                      <v-select v-model="new_account.balance" :items="allBalances" placeholder="Enter Balance" outlined hide-details></v-select>
+                    </div>
+                  </CustomInputContainer>
+                </v-col>
+                <v-col cols="4">
+                  <CustomInputContainer label="As of">
+                    <div slot="input">
+                      <v-text-field v-model="as_of" placeholder="Select Date" outlined hide-details></v-text-field>
+                    </div>
+                  </CustomInputContainer>
+                </v-col>
+              </v-row>
+            </v-container>
           </v-card-text>
         </v-card>
       </div>
@@ -252,18 +323,38 @@ import '@/assets/scss/Sales/_sales.scss'
 import '@/assets/scss/utils/Tables/_mainTable.scss'
 import TotalsCard from '@/components/Cards/TotalsCard/index.vue'
 import LightArrow from '@/assets/images/White-Light-Arrow-icon.svg'
+import CustomInputContainer from '@/components/utils/CustomInputContainer.vue'
 
 export default {
   layout: 'dashboard',
-  components: { TotalsCard, LightArrow }, 
+  components: { TotalsCard, LightArrow, CustomInputContainer }, 
   data() { 
     return {
-      addNewDialog: true,
+
+      // 
+
+      // ADD NEW ACCOUNT DIALOG
+      new_account: { id: 3, no: '110', name:'', type:'', d_type: 'Bank', tax: '', balance:'', b_balance: 'AED 65,500', status: 'paid', color: '#1AD598', action: '' },
+      description: '',
+      sub_account: '',
+      as_of: '',
+
+
+      allAccountsTypes: ['Type1', 'Type2'],
+      allSubAccounts: ['Account1', 'Account2'],
+      allTaxCodes: ['Code1', 'Code2'],
+      allBalances: ['Balance1', 'Balance2'],
+      isSubAccount: false,
+
+
+
+      addNewDialog: false,
       actionsDialog: false,
       settingDialog: false,
 
       // SNACKBAR
-      snackbar_data: { snackbar: false, text: 'Successfully', color: 'success', timeout: 2000 },
+      printedSnackbar: { snackbar: false, text: 'Successfully', color: 'success', timeout: 2000 },
+      itemAddedSnackbar : { snackbar: false, text: 'Item Added Successfully', color: 'success', timeout: 2000 },
 
       // FILTER
       filterDialog: false,
@@ -354,8 +445,13 @@ export default {
     }
   },
   methods: {
+    handleAddNewItem() {
+      this.all_data.push(this.new_account)
+      this.addNewDialog = false
+      this.itemAddedSnackbar.snackbar = true
+    },
     handlePrint() {
-      this.snackbar_data = { snackbar: true, text: 'Printed Successfully', color: 'success', timeout: 2000 }
+      this.printedSnackbar = { snackbar: true, text: 'Printed Successfully', color: 'success', timeout: 2000 }
     },
     handleApplyFilter() {
       this.filterDialog = false

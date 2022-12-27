@@ -248,17 +248,11 @@ p, span, .n_text {
     border-radius: $card-border-radius;
     box-shadow: $card-shadow;
     overflow: hidden;
-    // position: absolute !important;
-    // top: 0 !important;
-    // left: 0 !important;
-    // right: 0 !important;
-    // max-width: 500px !important;
-    // min-width: 500px !important;
-
+    border-radius: 0px 0px 16px 16px !important;
 }
 .my_dialog {
     position: absolute !important;
-    top: 0 !important;
+    top: -5px !important;
     max-width: 70% !important;
 }
 @media screen and (min-width: 1537px) {
