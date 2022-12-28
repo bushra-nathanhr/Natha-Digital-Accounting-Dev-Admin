@@ -1,21 +1,34 @@
 <template>
   <v-row class="wrapper_row">
 
+
     <!-- ADD NEW INVOICE -->
-    <v-dialog v-model="addNewInvoiceDialog" class="ma-0 pa-0">
+    <v-dialog v-model="addNewInvoiceDialog" class="ma-0 pa-0" style="height: 100vh !important">
       <div class="my_dialog">
         <v-card id="tall_dialog">
           <v-card-title id="card-title">
-              <h4 class="text--text">Invoice #255</h4>
+              <h4 class="text--text" v-if="stage=='default'">Invoice #255</h4>
+              <h4 class="text--text" v-if="stage=='recurring'">Recurring Invoice</h4>
+              <v-btn class="tall__btn" color="text" min-width="150px" icon v-if="stage==='pdf'" @click="stage='default'">
+                <v-icon small color="text" class="mr-2">fa-close</v-icon>
+                Go Back
+              </v-btn>
               <div class="flex_row justify-lg-space-between">
-                <!-- <v-btn class="tall__btn mr-2 px-5" color="subtext" outlined>Make Recuring</v-btn> -->
-                <v-btn class="tall__btn mr-2 px-5" color="subtext" outlined @click="addNewInvoiceDialog=false">Done</v-btn>
-                <v-btn class="tall__btn px-9" color="primary" min-width="150px" @click="handleAddNewInvoice" :disabled="!enabled">Add Invoice</v-btn>
+                <h4 class="text--text mr-9" v-if="stage=='recurring'">Balance due : 0.00</h4>
+                <v-btn class="tall__btn mr-2 px-5" color="subtext" outlined @click="addNewInvoiceDialog=false">Close</v-btn>
+                <v-btn class="tall__btn mr-2 px-5" color="subtext" outlined @click="stage='recurring'" v-if="stage==='default'">Make Recurring</v-btn>
+                <v-btn class="tall__btn mr-2 px-5" color="subtext" outlined @click="stage='default'" v-if="stage==='recurring'">Not Recurring</v-btn>
+                <v-btn class="tall__btn px-9" color="primary" min-width="150px" v-if="stage==='default'||stage==='recurring'" @click="stage='pdf'">View Invoice</v-btn>
+                <v-btn class="tall__btn mr-2 px-5" color="subtext" outlined v-if="stage==='pdf'" onclick="window.open('MyPDF.pdf', '_blank', 'fullscreen=yes'); return false;"><v-icon class="mr-2" small>fa-download</v-icon>Download</v-btn>
+                <v-btn class="tall__btn mr-2 px-5" color="subtext" outlined v-if="stage==='pdf'" @click="print"><v-icon class="mr-2" small>fa-print</v-icon>Print</v-btn>
+                <v-btn class="tall__btn px-9" color="primary" min-width="150px" v-if="stage==='pdf'" @click="handleSaveInvoice(new_invoice_data)"><v-icon class="mr-2" small>fa-check</v-icon>Create Invoice</v-btn>
               </div>
           </v-card-title>
           <v-divider id="divider" class="mt-5"></v-divider>
           <v-card-text id="card-text">
-            <v-container>
+
+            <!-- ADDING INVOICES -->
+            <v-container v-if="stage==='default'">
 
               <!-- INPUTS -->
               <v-row>
@@ -24,7 +37,7 @@
                     <v-col cols="12">
                       <CustomInputContainer label="Customer">
                         <div slot="input">
-                          <v-select v-model="new_invoice.customer" :items="allCustomers" placeholder="Enter Customer Name" outlined hide-details></v-select>
+                          <v-select v-model="new_invoice.customer" :items="sales_data.customer" placeholder="Enter Customer Name" outlined hide-details></v-select>
                         </div>
                       </CustomInputContainer>
                     </v-col>
@@ -39,16 +52,16 @@
 
                 <v-col cols="3" class="pa-0">
                   <v-col cols="12">
-                    <CustomInputContainer label="Terms">
+                    <CustomInputContainer label="Amount">
                       <div slot="input">
-                        <v-text-field v-model="new_invoice.terms" placeholder="Enter Terms" outlined hide-details></v-text-field>
+                        <v-text-field v-model="new_invoice.amount" placeholder="Enter Terms" outlined hide-details></v-text-field>
                       </div>
                     </CustomInputContainer>
                   </v-col>
                   <v-col cols="12">
-                    <CustomInputContainer label="Invoice date">
+                    <CustomInputContainer label="Tax">
                       <div slot="input">
-                        <v-text-field v-model="new_invoice.date" placeholder="Enter Date" outlined hide-details></v-text-field>
+                        <v-text-field v-model="new_invoice.tax" placeholder="Enter Tax" outlined hide-details></v-text-field>
                       </div>
                     </CustomInputContainer>
                   </v-col>
@@ -58,29 +71,42 @@
                   <v-col cols="12">
                     <CustomInputContainer label="Due date">
                     <div slot="input">
-                      <v-text-field v-model="new_invoice.dueDate" placeholder="Enter Due Date" outlined hide-details></v-text-field>
+                      <v-text-field v-model="new_invoice.due_date" placeholder="Enter Due Date" outlined hide-details></v-text-field>
                     </div>
                   </CustomInputContainer>
                   </v-col>
                   <v-col cols="12">
-                    <CustomInputContainer label="Sale Location">
+                    <CustomInputContainer label="Terms">
                     <div slot="input">
-                      <v-text-field @click="enabled=!enabled" v-model="new_invoice.location" placeholder="Enter Location" outlined hide-details></v-text-field>
+                      <v-text-field v-model="new_invoice.terms" placeholder="Enter Invoice Terms" outlined hide-details></v-text-field>
                     </div>
                   </CustomInputContainer>
                   </v-col>
                 </v-col>
 
+                
                 <v-col cols="3" class="pa-0">
-                  <v-col cols="12" class="pb-0">
-                    <CustomInputContainer label="Billing Address">
-                      <div slot="input">
-                        <v-textarea solo flat outlined hide-details color="primary" label="Street, city, country" ></v-textarea>
-                      </div>
-                    </CustomInputContainer>
+                  <v-col cols="12">
+                    <CustomInputContainer label="Invoice Date">
+                    <div slot="input">
+                      <v-text-field v-model="new_invoice.date" placeholder="Enter Date" outlined hide-details></v-text-field>
+                    </div>
+                  </CustomInputContainer>
+                  </v-col>
+                  <v-col cols="12">
+                    <CustomInputContainer label="Location">
+                    <div slot="input">
+                      <v-text-field v-model="new_invoice.location" placeholder="Enter Location " outlined hide-details></v-text-field>
+                    </div>
+                  </CustomInputContainer>
                   </v-col>
                 </v-col>
                 
+                <v-row>
+                  <v-spacer></v-spacer>
+                  <v-btn class="tall__btn mr-2 mt-2" outlined color="error" @click="clear"><v-icon small color="error">fa-close</v-icon></v-btn>
+                  <v-btn class="tall__btn mr-5 mt-2" outlined color="primary" @click="handleAddInvoiceToThePreviewTable(new_invoice)"><v-icon small color="primary">fa-plus</v-icon></v-btn>
+                </v-row>
               </v-row>
 
               <!-- OUTPUTS -->
@@ -94,14 +120,14 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr v-for="item in addNewInvoicePreviewTableData" :key="item.name">
-                          <td>{{ item.no }}</td>
-                          <td>{{ item.service }}</td>
-                          <td>{{ item.product }}</td>
-                          <td>{{ item.description }}</td>
-                          <td>{{ item.qty }}</td>
-                          <td>{{ item.rate }}</td>
+                        <tr v-for="item in new_invoice_data" :key="item">
+                          <td>#</td>
                           <td>{{ item.amount }}</td>
+                          <td>{{ item.due_date }}</td>
+                          <td>{{ item.date }}</td>
+                          <td>1</td>
+                          <td>0</td>
+                          <td>{{ item.terms }}</td>
                           <td>{{ item.tax }}</td>
                         </tr>
                       </tbody>
@@ -111,12 +137,236 @@
               </v-row>
               
             </v-container>
+
+
+            <!-- PREVIEWING INVOICE -->
+            <v-container class="inv_con ma-0 pa-0" v-if="stage==='pdf'">
+              <div class="a4__con mx-auto" style="max-width: 900px;min-height: 85vh;">
+                
+                <!-- PDF HEADER -->
+                <v-row class="ma-0 pa-0">
+                  <v-col cols="8">
+                    <div class="n__logo">
+                      <h1 class="primary--text my-5">Nathan&Nathan</h1>
+                    </div>
+                  </v-col>
+                </v-row>
+                <v-row class="ma-0 pa-0">
+                  <v-col cols="6">
+                    <p class="ma-0 pa-0 text--text">Office 1005, 10Th Floor, Marina Plaza, Dubai Marina</p>
+                    <p class="ma-0 pa-0 text--text">Dubai, UAE 68128 AE</p>
+                    <p class="ma-0 pa-0 text--text">Accounts@Nathanhr.Com www.nathanhr.com</p>
+                    <p class="ma-0 pa-0 text--text">federal tax authority registration no.: 100323347300003</p>
+                  </v-col>
+                </v-row>
+                
+                <!-- INVOICE DETAILS -->
+                <h1 class="ml-3 py-3 text--text">Invoice</h1>
+                <v-row class="ma-0 pa-0">
+                  <v-col cols="5">
+                    <h5 class="ma-0 pa-0 pb-2 subtext--text">Invoice Details</h5>
+                    <p class="ma-0 pa-0 text--text">{{invoice_pdf.c_name}}</p>
+                    <p class="ma-0 pa-0 text--text">{{invoice_pdf.address}}</p>
+                    <p class="ma-0 pa-0 text--text">{{invoice_pdf.country}}</p>
+                    <p class="ma-0 pa-0 text--text">{{invoice_pdf.vat_no}}</p>
+                    <v-col cols="auto" class="px-0">
+                      <h5 class="ma-0 pa-0 pb-2 subtext--text">Invoice No.</h5>
+                      <p class="ma-0 pa-0 text--text">{{invoice_pdf.invoice_no}}</p>
+                    </v-col>
+                  </v-col>
+                  <v-col cols="5">
+                    <v-col cols="auto">
+                      <h5 class="ma-0 pa-0 pb-2 subtext--text">Invoice No.</h5>
+                      <p class="ma-0 pa-0 text--text">{{invoice_pdf.invoice_no}}</p>
+                    </v-col>
+                    <v-row>
+                      <v-col cols="6">
+                        <h5 class="ma-0 pa-0 pb-2 subtext--text">Invoice Date</h5>
+                        <p class="ma-0 pa-0 text--text">{{invoice_pdf.date}}</p>
+                      </v-col>
+                      <v-col cols="6">
+                        <h5 class="ma-0 pa-0 pb-2 subtext--text">Invoice Due Date</h5>
+                        <p class="ma-0 pa-0 text--text">{{invoice_pdf.due_date}}</p>
+                      </v-col>
+                    </v-row>
+                  </v-col>
+                </v-row>
+
+                <!-- INPUTS -->
+                <v-row class="mt-9 mb-0 pb-0">
+                  <v-spacer></v-spacer>
+                  <v-col cols="12">
+                    <v-simple-table
+                      fixed-header
+                    >
+                      <template v-slot:default>
+                        <thead>
+                          <tr>
+                            <th class="text-center text--text">Pro/Ser</th>
+                            <th class="text-center text--text">Tax</th>
+                            <th class="text-center text--text">Rate</th>
+                            <th class="text-center text--text">Qty</th>
+                            <th class="text-center text--text">Price</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr class="outline">
+                            <td class="text-center font-weight-medium" v-for="item in invoice_pdf.input" :key="item">{{ item }}</td>
+                          </tr>
+                        </tbody>
+                      </template>
+                    </v-simple-table>
+                  </v-col>
+                  <v-spacer></v-spacer>
+
+                </v-row>
+
+                <!-- FOOTER -->
+                <div class="mx-auto mt-9 pt-9 text-center">
+                  <span class="subtext--text ">This Is A System Generated Invoice And Does Not Require Signature.</span>
+                </div>
+                
+              </div>
+            </v-container>
+
+
+            <!-- MAKE RECURRING -->
+            <v-container v-if="stage==='recurring'">
+
+              <!-- INPUTS -->
+              <v-row>
+                
+                <v-row>
+                  <v-col cols="3">
+                    <CustomInputContainer label="Template name">
+                      <div slot="input">
+                        <v-text-field v-model="new_invoice.amount" placeholder="Enter Type" outlined hide-details></v-text-field>
+                      </div>
+                    </CustomInputContainer>
+                  </v-col>
+                  <v-col cols="3">
+                    <CustomInputContainer label="Type">
+                      <div slot="input">
+                        <v-select v-model="new_invoice.customer" :items="sales_data.customer" placeholder="Enter Type" outlined hide-details></v-select>
+                      </div>
+                    </CustomInputContainer>
+                  </v-col>
+                  <v-col cols="2">
+                    <CustomInputContainer label="Create">
+                      <div slot="input">
+                        <v-text-field v-model="new_invoice.amount" placeholder="Enter Create" outlined hide-details></v-text-field>
+                      </div>
+                    </CustomInputContainer>
+                  </v-col>
+                </v-row>
+
+                <v-row>
+                  <v-col cols="4">
+                    <CustomInputContainer label="Customer">
+                      <div slot="input">
+                        <v-text-field v-model="new_invoice.amount" placeholder="Enter Customer" outlined hide-details></v-text-field>
+                      </div>
+                    </CustomInputContainer>
+                  </v-col>
+                  <v-col cols="4">
+                    <CustomInputContainer label="Customer Email">
+                      <div slot="input">
+                        <v-text-field v-model="new_invoice.amount" placeholder="Enter Customer Email" outlined hide-details></v-text-field>
+                      </div>
+                    </CustomInputContainer>
+                  </v-col>
+                </v-row>
+
+                <v-row class="mt-9">
+                  <v-col cols="2">
+                    <CustomInputContainer label="Interval">
+                      <div slot="input">
+                        <v-select v-model="new_invoice.customer" :items="sales_data.customer" placeholder="Interval" outlined hide-details></v-select>
+                      </div>
+                    </CustomInputContainer>
+                  </v-col>                  
+                  <v-col cols="2">
+                    <CustomInputContainer label="Interval">
+                      <div slot="input">
+                        <v-select v-model="new_invoice.customer" :items="sales_data.customer" placeholder="Interval" outlined hide-details></v-select>
+                      </div>
+                    </CustomInputContainer>
+                  </v-col>                  
+                  <v-col cols="2">
+                    <CustomInputContainer label="Start date">
+                      <div slot="input">
+                        <v-select v-model="new_invoice.customer" :items="sales_data.customer" placeholder="Start date" outlined hide-details></v-select>
+                      </div>
+                    </CustomInputContainer>
+                  </v-col>                  
+                  <v-col cols="2">
+                    <CustomInputContainer label="End Date">
+                      <div slot="input">
+                        <v-select v-model="new_invoice.customer" :items="sales_data.customer" placeholder="End Date" outlined hide-details></v-select>
+                      </div>
+                    </CustomInputContainer>
+                  </v-col>
+                </v-row>
+
+                <v-row>
+                  <v-col cols="3" class="pb-0 mb-0">
+                    <CustomInputContainer label="Billing Address" class="pb-0 mb-0">
+                      <div slot="input">
+                        <v-textarea placeholder="Enter Billing Address" hide-details flat solo outlined color="primary"></v-textarea>
+                      </div>
+                    </CustomInputContainer>
+                  </v-col>
+                  <v-col cols="3">
+                    <div class="flex_column">
+                    <CustomInputContainer label="Terms">
+                      <div slot="input">
+                        <v-text-field v-model="new_invoice.amount" placeholder="Enter Terms" outlined hide-details></v-text-field>
+                      </div>
+                    </CustomInputContainer>
+                    <CustomInputContainer label="Sale Location" class="mt-3">
+                      <div slot="input">
+                        <v-text-field v-model="new_invoice.amount" placeholder="Enter Sale Location" outlined hide-details></v-text-field>
+                      </div>
+                    </CustomInputContainer>
+                    </div>
+                  </v-col>
+                </v-row>
+
+              </v-row>
+
+              <!-- OUTPUTS -->
+              <v-row class="mt-9">
+                <v-col cols="12">
+                  <v-simple-table>
+                    <template v-slot:default>
+                      <thead>
+                        <tr class="outline">
+                          <th v-for="item in addNewInvoicePreviewTableHeaders" :key="item" class="text-left">{{ item }}</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr v-for="item in new_invoice_data" :key="item">
+                          <td>#</td>
+                          <td>{{ item.amount }}</td>
+                          <td>{{ item.due_date }}</td>
+                          <td>{{ item.date }}</td>
+                          <td>1</td>
+                          <td>0</td>
+                          <td>{{ item.terms }}</td>
+                          <td>{{ item.tax }}</td>
+                        </tr>
+                      </tbody>
+                    </template>
+                  </v-simple-table>
+                </v-col>
+              </v-row>
+              
+            </v-container>
+
           </v-card-text>
         </v-card>
       </div>
     </v-dialog>
-
-
 
     <!-- ADD NEW Payment -->
     <v-dialog v-model="addNewPaymentDialog" class="ma-0 pa-0">
@@ -252,9 +502,7 @@
         </v-card>
       </div>
     </v-dialog>
-    
   
-
     <!-- FILTER DIALOG -->
     <v-dialog id="custom_dialog" v-model="filterDialog" persistent max-width="500px">
       <v-card id="card" style="padding: 20px 30px !important">
@@ -338,6 +586,9 @@
       </v-card>
     </v-dialog>
 
+
+    <!-- SNACKBAR -->
+    <SnackBar :data="snackbar_data" />
 
 
     <!-- *** TOTALS CARDS *** -->
@@ -782,32 +1033,41 @@ import '@/assets/scss/utils/Tables/_mainTable.scss'
 import TotalsCard from '@/components/Cards/TotalsCard/index.vue'
 import LightArrow from '@/assets/images/White-Light-Arrow-icon.svg'
 import CustomInputContainer from '@/components/utils/CustomInputContainer.vue'
+import SnackBar from '~/components/utils/SnackBar.vue'
 
 export default {
   layout: 'dashboard',
-  components: { TotalsCard, LightArrow, CustomInputContainer }, 
+  components: { TotalsCard, LightArrow, CustomInputContainer, SnackBar }, 
   data() { 
     return {
+      
+      // CURRENT SELECTED COMPANY DATA
+      current_selected_company_data: {
+        name: '',
+        email: '',
+        phone: '',
+        address: '',
+      },
 
-      // ADD NEW PAYMENT
-      addNewPaymentDialog: false,
-      new_payment: {},
 
+      // INVOICE TEMPLATE PDF DATA
+      invoice_pdf: {
+        invoice_no: 'DF-2206-663',
+        date: '2022-06-23',
+        due_date: '2022-06-23',
+        po_no: '460695',
+        c_name: 'EasyBox',
+        address: 'San Francisco, CA 94114-8777',
+        country: 'United States',
+        vat_no: 'Vat No. 86-2769183',
+        input: ['Item 1', '1%', '12023', '1', 'AED 10,900']
+      },
 
       // ADD NEW INVOICE
       addNewInvoiceDialog : false,
-      new_invoice: {
-        customer: '',
-        email: '',
-        address: '',
-        terms: '',
-        date: '',
-        dueDate: '',
-        location: '',
-      },
-      allCustomers: ['Customer1', 'Customer2'],
-      enabled: false,
-      addNewInvoicePreviewTableData: [],
+      stage: 'default',
+      new_invoice: {},
+      new_invoice_data: [],
       addNewInvoicePreviewTableHeaders: [
         '#',
         'Service Date',
@@ -818,6 +1078,54 @@ export default {
         'Amount',
         'Tax',
       ],
+
+
+
+      // *** MAIN SALES DATA ***
+      sales_headers: [
+        { text: 'Date', value: 'date', align: 'start' },
+        { text: 'Customer', value: 'customer' },
+        { text: 'Type', value: 'type' },
+        { text: 'Due Date', value: 'due_date' },
+        { text: 'Before Tax', value: 'tax' },
+        { text: 'Tax', value: 'tax' },
+        { text: 'Total', value: 'amount' },
+        { text: 'Status', value: 'status', align: 'center' },
+        { text: 'Action', sortable: false },
+      ],
+      sales_data: [
+        {
+          no: '1001',
+          data: '22-05-2022',
+          due_date: '22-05-2022',
+          type: 'invoice',
+          amount: '00',
+          status: 'paid',
+          customer: 'bushra aboubida',
+          phone: '055532323',
+          email: 'email@email.com',
+          location: 'Dubai',
+          tax: '0.5%',
+          terms: '1',
+          color: '#1AD598',
+        },
+        {
+          no: '1001',
+          data: '22-05-2022',
+          due_date: '22-05-2022',
+          type: 'payment',
+          amount: '00',
+          status: 'closed',
+          customer: 'osama aboubida',
+          phone: '055532323',
+          email: 'email@email.com',
+          location: 'Dubai',
+          tax: '0.5%',
+          terms: '1',
+          color: '#FFB536',
+        },
+      ],
+
       
       
       // FILTER
@@ -847,6 +1155,9 @@ export default {
         { title: 'Journal Entry', value: 'journal_entry' },
       ],
      
+
+      // SNACKBAR
+      snackbar_data: { snackbar: false, text: 'Successfully', color: 'success', timeout: 2000 },
 
       // Forecast 
       forecast_search: '',
@@ -1051,6 +1362,22 @@ export default {
   mounted(){
   },
   methods: {
+    print() {
+      window.print()
+    },
+    handleSaveInvoice(value) {
+      // this.sales_data.push(...value)
+      console.log('final objects ==>', value)
+      this.snackbar_data = { snackbar: true, text: 'Invoices Added Successfully', color: 'success', timeout: 2000 }
+      this.addNewInvoiceDialog = false
+    },
+    handleAddInvoiceToThePreviewTable(value) {
+      this.new_invoice_data.push(this.new_invoice)
+      this.new_invoice = {}
+    },
+    clear(){
+      this.new_invoice = {}
+    },
     handleNewTransaction(value) {
       if(value=='Invoice') {
         this.addNewInvoiceDialog=!this.addNewInvoiceDialog
@@ -1068,11 +1395,7 @@ export default {
         this.addNewEntryDialog=!this.addNewEntryDialog
       } 
     },
-    handleAddNewPayment() {
-      // this.addNewInvoicePreviewTableData.push({no: '#',service: '0-0-2020',product: 'ERP',description: 'lorem ipsum..',qty: '1',rate: '1044',amount: '20,890',tax: '1%'})
-      // this.invoices_data.push(this.addNewInvoicePreviewTableData)
-    },
-    handleAddNewInvoice() {
+    handleShowInvoice() {
       this.addNewInvoicePreviewTableData.push({no: '#',service: '0-0-2020',product: 'ERP',description: 'lorem ipsum..',qty: '1',rate: '1044',amount: '20,890',tax: '1%'})
       this.invoices_data.push(this.addNewInvoicePreviewTableData)
     },
