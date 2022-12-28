@@ -133,100 +133,91 @@
           <v-card-text id="card-text">
             <v-container>
 
-              <!-- INPUTS -->
-              <v-row>
+                <!-- INPUTS -->
+                <v-row>
                 
                 <v-col cols="3" class="pa-0">
                     <v-col cols="12">
-                      <CustomInputContainer label="Customer">
+                        <CustomInputContainer label="Customer">
                         <div slot="input">
-                          <v-select v-model="new_invoice.customer" :items="allCustomers" placeholder="Enter Customer Name" outlined hide-details></v-select>
+                            <v-select v-model="new_invoice.customer" :items="allCustomers" placeholder="Enter Customer Name" outlined hide-details></v-select>
                         </div>
-                      </CustomInputContainer>
+                        </CustomInputContainer>
                     </v-col>
                     <v-col cols="12">
-                      <CustomInputContainer label="Customer Email">
+                        <CustomInputContainer label="Email">
                         <div slot="input">
-                          <v-text-field v-model="new_invoice.email" placeholder="Enter Customer Email" outlined hide-details></v-text-field>
+                            <v-text-field v-model="new_invoice.email" placeholder="Enter Email" outlined hide-details></v-text-field>
                         </div>
-                      </CustomInputContainer>
+                        </CustomInputContainer>
                     </v-col>
+                    <v-spacer></v-spacer>
                 </v-col>
 
                 <v-col cols="3" class="pa-0">
-                  <v-col cols="12">
-                    <CustomInputContainer label="Terms">
-                      <div slot="input">
-                        <v-text-field v-model="new_invoice.terms" placeholder="Enter Terms" outlined hide-details></v-text-field>
-                      </div>
+                    <v-col cols="4">
+                    <CustomInputContainer label="Payment Date">
+                        <div slot="input">
+                        <v-text-field v-model="new_invoice.terms" placeholder="Select Payment Date" outlined hide-details></v-text-field>
+                        </div>
                     </CustomInputContainer>
-                  </v-col>
-                  <v-col cols="12">
-                    <CustomInputContainer label="Invoice date">
-                      <div slot="input">
+                    </v-col>
+                    <v-col cols="4">
+                    <CustomInputContainer label="Payment Method">
+                        <div slot="input">
                         <v-text-field v-model="new_invoice.date" placeholder="Enter Date" outlined hide-details></v-text-field>
-                      </div>
+                        </div>
                     </CustomInputContainer>
-                  </v-col>
+                    </v-col>
+                    <v-col cols="4">
+                    <CustomInputContainer label="Ref no">
+                        <div slot="input">
+                        <v-text-field v-model="new_invoice.date" placeholder="Enter Date" outlined hide-details></v-text-field>
+                        </div>
+                    </CustomInputContainer>
+                    </v-col>
                 </v-col>
 
                 <v-col cols="3" class="pa-0">
-                  <v-col cols="12">
-                    <CustomInputContainer label="Due date">
+                    <v-col cols="12">
+                    <CustomInputContainer label="Ref no">
                     <div slot="input">
-                      <v-text-field v-model="new_invoice.dueDate" placeholder="Enter Due Date" outlined hide-details></v-text-field>
+                        <v-text-field v-model="new_invoice.dueDate" placeholder="Enter Due Date" outlined hide-details></v-text-field>
                     </div>
-                  </CustomInputContainer>
-                  </v-col>
-                  <v-col cols="12">
-                    <CustomInputContainer label="Sale Location">
-                    <div slot="input">
-                      <v-text-field @click="enabled=!enabled" v-model="new_invoice.location" placeholder="Enter Location" outlined hide-details></v-text-field>
-                    </div>
-                  </CustomInputContainer>
-                  </v-col>
-                </v-col>
-
-                <v-col cols="3" class="pa-0">
-                  <v-col cols="12" class="pb-0">
-                    <CustomInputContainer label="Billing Address">
-                      <div slot="input">
-                        <v-textarea solo flat outlined hide-details color="primary" label="Street, city, country" ></v-textarea>
-                      </div>
                     </CustomInputContainer>
-                  </v-col>
+                    </v-col>
                 </v-col>
                 
-              </v-row>
+                </v-row>
 
-              <!-- OUTPUTS -->
-              <v-row class="mt-9">
+                <!-- OUTPUTS -->
+                <v-row class="mt-9">
                 <v-col cols="12">
-                  <v-simple-table>
+                    <v-simple-table>
                     <template v-slot:default>
-                      <thead>
+                        <thead>
                         <tr class="outline">
-                          <th v-for="item in addNewInvoicePreviewTableHeaders" :key="item" class="text-left">{{ item }}</th>
+                            <th v-for="item in addNewInvoicePreviewTableHeaders" :key="item" class="text-left">{{ item }}</th>
                         </tr>
-                      </thead>
-                      <tbody>
+                        </thead>
+                        <tbody>
                         <tr v-for="item in addNewInvoicePreviewTableData" :key="item.name">
-                          <td>{{ item.no }}</td>
-                          <td>{{ item.service }}</td>
-                          <td>{{ item.product }}</td>
-                          <td>{{ item.description }}</td>
-                          <td>{{ item.qty }}</td>
-                          <td>{{ item.rate }}</td>
-                          <td>{{ item.amount }}</td>
-                          <td>{{ item.tax }}</td>
+                            <td>{{ item.no }}</td>
+                            <td>{{ item.service }}</td>
+                            <td>{{ item.product }}</td>
+                            <td>{{ item.description }}</td>
+                            <td>{{ item.qty }}</td>
+                            <td>{{ item.rate }}</td>
+                            <td>{{ item.amount }}</td>
+                            <td>{{ item.tax }}</td>
                         </tr>
-                      </tbody>
+                        </tbody>
                     </template>
-                  </v-simple-table>
+                    </v-simple-table>
                 </v-col>
-              </v-row>
-              
-            </v-container>
+                </v-row>
+
+                </v-container>
           </v-card-text>
         </v-card>
       </div>

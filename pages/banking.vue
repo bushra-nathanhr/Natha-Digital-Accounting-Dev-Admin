@@ -11,6 +11,83 @@
       </div>
     </v-snackbar>
 
+    <!-- ADD NEW BANK ACCOUNT DIALOG -->
+    <v-dialog v-model="addNewBankAccountDialog" class="ma-0 pa-0">
+      <div class="my_dialog">
+        <v-card id="tall_dialog">
+          <v-card-title id="card-title">
+              <h4 class="text--text">Add New Bank Account</h4>
+              <div class="flex_row justify-lg-space-between">
+                <v-btn class="tall__btn mr-2 px-5" color="subtext" outlined @click="addNewBankAccountDialog=false">Done</v-btn>
+                <v-btn class="tall__btn px-9" color="primary" min-width="150px" @click="handleAddNewBankAccount">Add Account</v-btn>
+              </div>
+          </v-card-title>
+          <v-divider id="divider" class="mt-5"></v-divider>
+          <v-card-text id="card-text">
+            <v-container>
+
+              <!-- INPUTS -->
+              <v-row>
+                
+                <v-col cols="3" class="pa-0">
+                    <v-col cols="12">
+                      <CustomInputContainer label="Account Number">
+                        <div slot="input">
+                          <v-select  :items="allCustomers" placeholder="Enter Account Number" outlined hide-details></v-select>
+                        </div>
+                      </CustomInputContainer>
+                    </v-col>
+                    <v-col cols="12">
+                      <CustomInputContainer label="Account Type">
+                        <div slot="input">
+                          <v-text-field  placeholder="Enter Account Type" outlined hide-details></v-text-field>
+                        </div>
+                      </CustomInputContainer>
+                    </v-col>
+                </v-col>
+
+                <v-col cols="3" class="pa-0">
+                  <v-col cols="12">
+                    <CustomInputContainer label="Account Type">
+                      <div slot="input">
+                        <v-text-field  placeholder="Enter Account Type" outlined hide-details></v-text-field>
+                      </div>
+                    </CustomInputContainer>
+                  </v-col>
+                  <v-col cols="12">
+                    <CustomInputContainer label="Date">
+                      <div slot="input">
+                        <v-text-field placeholder="Enter Date" outlined hide-details></v-text-field>
+                      </div>
+                    </CustomInputContainer>
+                  </v-col>
+                </v-col>
+
+                <v-col cols="3" class="pa-0">
+                  <v-col cols="12">
+                    <CustomInputContainer label="Due date">
+                    <div slot="input">
+                      <v-text-field placeholder="Enter Due Date" outlined hide-details></v-text-field>
+                    </div>
+                  </CustomInputContainer>
+                  </v-col>
+                  <v-col cols="12">
+                    <CustomInputContainer label="Sale Location">
+                    <div slot="input">
+                      <v-text-field  placeholder="Enter Location" outlined hide-details></v-text-field>
+                    </div>
+                  </CustomInputContainer>
+                  </v-col>
+                </v-col>
+                
+              </v-row>
+              
+            </v-container>
+          </v-card-text>
+        </v-card>
+      </div>
+    </v-dialog>
+
     <!-- FILTER DIALOG -->
     <v-dialog id="custom_dialog" v-model="filterDialog" persistent max-width="500px">
       <v-card id="card" style="padding: 20px 30px !important">
@@ -192,7 +269,7 @@
             @click="handleBankAccount(item)"
             >
             </v-btn>
-            <v-btn class="tall__btn" color="subtext" outlined width="128px" height="40px">
+            <v-btn class="tall__btn" color="subtext" outlined width="128px" height="40px" @click="addNewBankAccountDialog=true">
               <v-icon color="subtext" class="mr-2" small>fa-plus</v-icon>
               Add Account
             </v-btn>
@@ -327,6 +404,12 @@ export default {
   components: { CustomInputContainer, FileDropZone },
   data() {
     return {
+
+      // ADD NEW BANK ACCOUNT
+      addNewBankAccountDialog: false,
+      allCustomers: ['Customer1', 'Customer2'],
+
+
       // FILTER
       filterDialog: false,
       filter_by: [ 'All', 'Week to date', 'This month to date', 'This quarter to date', 'This year to date', 'Specific dates'], 
@@ -419,6 +502,11 @@ export default {
     }
   },
   methods: {
+    handleAddNewBankAccount() {
+      this.snackbar_data = { snackbar: true, text: 'Account Added Uploaded', color: 'success', timeout: 2000 }
+      this.addNewBankAccountDialog = false
+
+    },
     handleApplyFilter() {
       this.filterDialog = false
     },
